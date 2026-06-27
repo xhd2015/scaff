@@ -11,7 +11,6 @@ import (
 	"github.com/xhd2015/scaff/internal/model"
 	"github.com/xhd2015/scaff/internal/fix"
 	"github.com/xhd2015/scaff/internal/output"
-	"github.com/xhd2015/scaff/internal/rules"
 )
 
 func main() {
@@ -28,6 +27,8 @@ func main() {
 		os.Exit(runLint(os.Args[2:]))
 	case "fix":
 		os.Exit(runFix(os.Args[2:]))
+	case "rules":
+		os.Exit(runRules(os.Args[2:]))
 	default:
 		fmt.Fprintf(os.Stderr, "scaff: unknown command %q\n", os.Args[1])
 		printUsage(os.Stderr)
@@ -79,6 +80,30 @@ func runLint(args []string) int {
 	return 0
 }
 
+func runRules(args []string) int {
+	var jsonOut bool
+	remain, err := lessflags.Bool("--json", &jsonOut).
+		Help("-h,--help", rulesHelp).
+		Parse(args)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "scaff rules: %v\n", err)
+		return 2
+	}
+	if len(remain) > 0 {
+		fmt.Fprintf(os.Stderr, "scaff rules: unexpected arguments: %s\n", strings.Join(remain, " "))
+		return 2
+	}
+	if jsonOut {
+		if err := output.PrintRulesJSON(os.Stdout); err != nil {
+			fmt.Fprintf(os.Stderr, "scaff rules: %v\n", err)
+			return 1
+		}
+		return 0
+	}
+	output.PrintRules(os.Stdout)
+	return 0
+}
+
 func runFix(args []string) int {
 	if len(args) == 0 || isHelpArg(args[0]) {
 		fmt.Print(fixHelp)
@@ -103,7 +128,7 @@ func runFix(args []string) int {
 	}
 	if !fix.IsKnownRule(ruleID) {
 		fmt.Fprintf(os.Stderr, "scaff fix: unknown rule %q\n", ruleID)
-		fmt.Fprintf(os.Stderr, "available rules: %s\n", strings.Join(rules.AllFixRules, ", "))
+		fmt.Fprintf(os.Stderr, "available rules: %s\n", output.FormatFixRuleList())
 		return 2
 	}
 	project, err := resolveProject(dir, "")
@@ -139,12 +164,24 @@ const topHelp = `scaff — amend scaffolding to existing projects
 Usage:
   scaff lint [options]
   scaff fix <rule> [options]
+  scaff rules [options]
 
 Commands:
   lint    audit default rules (git.ignore, github.testing.workflow)
   fix     apply one scaffolding rule
+  rules   list lint and fix rules
 
-Run scaff lint --help or scaff fix --help for command-specific options.
+Run scaff <command> --help for command-specific options.
+`
+
+const rulesHelp = `scaff rules — list lint and fix rules
+
+Usage:
+  scaff rules [--json]
+
+Options:
+  --json        emit machine-readable JSON
+  -h, --help    show this help
 `
 
 const lintHelp = `scaff lint — audit project scaffolding
@@ -164,12 +201,7 @@ const fixHelp = `scaff fix — apply one scaffolding rule
 Usage:
   scaff fix <rule> [--dir DIR] [--dry-run]
 
-Rules:
-  git.ignore
-  github.testing.workflow
-  script.generate
-  git.hooks
-  git.hooks.install
+Run scaff rules for the full rule list.
 
 Options:
   --dir DIR     project directory (default: current directory)
