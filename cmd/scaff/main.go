@@ -16,8 +16,12 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		printUsage()
-		os.Exit(2)
+		printUsage(os.Stdout)
+		os.Exit(0)
+	}
+	if isHelpArg(os.Args[1]) {
+		printUsage(os.Stdout)
+		os.Exit(0)
 	}
 	switch os.Args[1] {
 	case "lint":
@@ -26,9 +30,13 @@ func main() {
 		os.Exit(runFix(os.Args[2:]))
 	default:
 		fmt.Fprintf(os.Stderr, "scaff: unknown command %q\n", os.Args[1])
-		printUsage()
+		printUsage(os.Stderr)
 		os.Exit(2)
 	}
+}
+
+func isHelpArg(arg string) bool {
+	return arg == "-h" || arg == "--help" || arg == "help"
 }
 
 func runLint(args []string) int {
@@ -38,6 +46,7 @@ func runLint(args []string) int {
 	remain, err := lessflags.String("--dir", &dir).
 		Bool("--json", &jsonOut).
 		String("--profile", &profile).
+		Help("-h,--help", lintHelp).
 		Parse(args)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "scaff lint: %v\n", err)
@@ -71,10 +80,9 @@ func runLint(args []string) int {
 }
 
 func runFix(args []string) int {
-	if len(args) == 0 {
-		fmt.Fprintln(os.Stderr, "scaff fix: requires rule argument")
-		printFixUsage()
-		return 2
+	if len(args) == 0 || isHelpArg(args[0]) {
+		fmt.Print(fixHelp)
+		return 0
 	}
 	ruleID := args[0]
 	args = args[1:]
@@ -83,6 +91,7 @@ func runFix(args []string) int {
 	var dryRun bool
 	remain, err := lessflags.String("--dir", &dir).
 		Bool("--dry-run", &dryRun).
+		Help("-h,--help", fixHelp).
 		Parse(args)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "scaff fix: %v\n", err)
@@ -125,10 +134,49 @@ func resolveProject(dir, profileOverride string) (model.Project, error) {
 	return audit.DetectProject(abs, profileOverride)
 }
 
-func printUsage() {
-	fmt.Fprintln(os.Stderr, "usage: scaff <lint|fix> [options]")
-}
+const topHelp = `scaff — amend scaffolding to existing projects
 
-func printFixUsage() {
-	fmt.Fprintln(os.Stderr, "usage: scaff fix <rule> [--dir DIR] [--dry-run]")
+Usage:
+  scaff lint [options]
+  scaff fix <rule> [options]
+
+Commands:
+  lint    audit default rules (git.ignore, github.testing.workflow)
+  fix     apply one scaffolding rule
+
+Run scaff lint --help or scaff fix --help for command-specific options.
+`
+
+const lintHelp = `scaff lint — audit project scaffolding
+
+Usage:
+  scaff lint [--dir DIR] [--json] [--profile PROFILE]
+
+Options:
+  --dir DIR          project directory (default: current directory)
+  --json             emit machine-readable JSON report
+  --profile PROFILE  go, node, polyglot, or generic (overrides auto-detect)
+  -h, --help         show this help
+`
+
+const fixHelp = `scaff fix — apply one scaffolding rule
+
+Usage:
+  scaff fix <rule> [--dir DIR] [--dry-run]
+
+Rules:
+  git.ignore
+  github.testing.workflow
+  script.generate
+  git.hooks
+  git.hooks.install
+
+Options:
+  --dir DIR     project directory (default: current directory)
+  --dry-run     show planned changes without writing files
+  -h, --help    show this help
+`
+
+func printUsage(w *os.File) {
+	fmt.Fprint(w, topHelp)
 }
