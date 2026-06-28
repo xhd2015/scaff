@@ -3,8 +3,7 @@
 - Exit code is `1`.
 - Output mentions `git.ignore`.
 - Output mentions `github.testing.workflow`.
-- Output does **not** mention `script.generate`.
-- Output does **not** mention `git.hooks`.
+- Output does **not** mention opt-in fix rules (`script.generate`, `git.hooks`, `github.release`, `install.via.curl`).
 
 ## Exit Code
 
@@ -29,7 +28,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 			t.Fatalf("expected output to mention %q, got:\n%s", want, out)
 		}
 	}
-	for _, omit := range []string{"script.generate", "git.hooks"} {
+	for _, omit := range []string{"script.generate", "git.hooks", "github.release", "install.via.curl"} {
 		if strings.Contains(out, omit) {
 			t.Fatalf("expected output NOT to mention %q, got:\n%s", omit, out)
 		}

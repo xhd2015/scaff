@@ -53,6 +53,22 @@ func writeGoMod(dir string) error {
 	return writeFile(dir, "go.mod", "module example.com/app\n\ngo 1.22\n")
 }
 
+func writeGoModGitHubScaffold(dir string) error {
+	return writeFile(dir, "go.mod", "module github.com/xhd2015/myapp\n\ngo 1.22\n")
+}
+
+func writeGithubReleaseMain(dir, content string) error {
+	return writeFile(dir, "script/github/release/main.go", content)
+}
+
+func writeGithubReleaseLib(dir, content string) error {
+	return writeFile(dir, "script/github/lib/build_release.go", content)
+}
+
+func writeInstallViaCurl(dir, content string) error {
+	return writeFile(dir, "install-via-curl.sh", content)
+}
+
 func writePackageJSON(dir string) error {
 	return writeFile(dir, "package.json", `{"name":"app","version":"1.0.0"}`+"\n")
 }

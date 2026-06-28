@@ -56,6 +56,18 @@ var Catalog = []RuleInfo{
 		Lint:        false,
 		Fix:         true,
 	},
+	{
+		ID:          "github.release",
+		Description: "script/github/release and lib helper for GitHub releases",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
+		ID:          "install.via.curl",
+		Description: "install-via-curl.sh curl installer at repo root",
+		Lint:        false,
+		Fix:         true,
+	},
 }
 
 func LintRules() []RuleInfo {

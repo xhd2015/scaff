@@ -25,6 +25,10 @@ func Apply(project model.Project, ruleID string, dryRun bool) (model.FixResult, 
 		return rules.FixGitHooks(project, dryRun)
 	case "git.hooks.install":
 		return rules.FixGitHooksInstall(project, dryRun)
+	case "github.release":
+		return rules.FixGithubRelease(project, dryRun)
+	case "install.via.curl":
+		return rules.FixInstallViaCurl(project, dryRun)
 	default:
 		return model.FixResult{}, fmt.Errorf("unknown rule %q", ruleID)
 	}

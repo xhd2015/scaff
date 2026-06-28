@@ -25,8 +25,13 @@ are never reported by lint.
 
 **Rule implementations** each own detection and repair for their artifact:
 `.gitignore`, GitHub workflow YAML, `script/generate`, `script/install`,
-`script/build`, `script/bundle/for-linux`, `script/git-hooks`, and hook
-installation into `.git/hooks/`.
+`script/build`, `script/bundle/for-linux`, `script/git-hooks`, hook
+installation into `.git/hooks/`, GitHub release scripts under
+`script/github/`, and the root `install-via-curl.sh` curl installer.
+
+Opt-in fix rules `github.release` and `install.via.curl` substitute project
+metadata from `go.mod` (`__NAME__`, `__OWNER__`, `__REPO__`) into scaffolded
+templates; they are not part of default lint.
 
 Tests build the `scaff` binary once per session, materialize temp project
 fixtures, exec the CLI, and assert on exit codes, stdout/stderr, and filesystem
@@ -83,10 +88,19 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
     ├── git-hooks/
     │   ├── scaffold-missing/                 creates install + no-op hooks
     │   └── idempotent/                       exists → no-op
-    └── git-hooks-install/
-        ├── without-scaffold/                 error + hint to fix git.hooks
-        ├── patches-hooks/                    git repo → patches pre-commit/pre-push
-        └── non-git/                          no .git → error
+    ├── git-hooks-install/
+    │   ├── without-scaffold/                 error + hint to fix git.hooks
+    │   ├── patches-hooks/                    git repo → patches pre-commit/pre-push
+    │   └── non-git/                          no .git → error
+    ├── github-release/                       Rule=github.release
+    │   ├── create-missing/                   go.mod → release main + lib
+    │   ├── partial-scaffold/                 main exists → create lib only
+    │   ├── idempotent/                       both exist → no-op
+    │   └── dry-run/                          preview paths, no write
+    └── install-via-curl/                     Rule=install.via.curl
+        ├── create-missing/                   curl installer at repo root
+        ├── idempotent/                       exists → no-op
+        └── dry-run/                          preview only
 ```
 
 ## Test Index
@@ -127,6 +141,13 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
 | `fix/git-hooks-install/without-scaffold` | Errors with hint when hooks not scaffolded |
 | `fix/git-hooks-install/patches-hooks` | Patches `.git/hooks` with scaff marker |
 | `fix/git-hooks-install/non-git` | Errors when directory is not a git repo |
+| `fix/github-release/create-missing` | Scaffolds release main + lib with go.mod substitutions |
+| `fix/github-release/partial-scaffold` | Creates missing lib when release main already exists |
+| `fix/github-release/idempotent` | Existing release scaffold is no-op |
+| `fix/github-release/dry-run` | `--dry-run` previews without writing release files |
+| `fix/install-via-curl/create-missing` | Creates `install-via-curl.sh` with GitHub URL patterns |
+| `fix/install-via-curl/idempotent` | Existing installer script is no-op |
+| `fix/install-via-curl/dry-run` | `--dry-run` previews without writing installer |
 
 ## How to Run
 

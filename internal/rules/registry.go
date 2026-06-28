@@ -9,6 +9,8 @@ var AllFixRules = []string{
 	"script.bundle.for-linux",
 	"git.hooks",
 	"git.hooks.install",
+	"github.release",
+	"install.via.curl",
 }
 
 var DefaultLintRules = []string{
