@@ -123,6 +123,30 @@ func writeScriptGenerate(dir string) error {
 	return writeFile(dir, "script/generate/main.go", content)
 }
 
+func writeScriptInstall(dir string) error {
+	content, err := readFixture("script-install-install.go")
+	if err != nil {
+		return err
+	}
+	return writeFile(dir, "script/install/install.go", content)
+}
+
+func writeScriptBuild(dir string) error {
+	content, err := readFixture("script-build-build.go")
+	if err != nil {
+		return err
+	}
+	return writeFile(dir, "script/build/build.go", content)
+}
+
+func writeScriptBundleForLinux(dir string) error {
+	content, err := readFixture("script-bundle-for-linux-main.go")
+	if err != nil {
+		return err
+	}
+	return writeFile(dir, "script/bundle/for-linux/main.go", content)
+}
+
 func writeGitHooksMain(dir string) error {
 	content, err := readFixture("git-hooks-main.go")
 	if err != nil {

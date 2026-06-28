@@ -15,6 +15,12 @@ func Apply(project model.Project, ruleID string, dryRun bool) (model.FixResult, 
 		return rules.FixGitHubTestingWorkflow(project, dryRun)
 	case "script.generate":
 		return rules.FixScriptGenerate(project, dryRun)
+	case "script.install":
+		return rules.FixScriptInstall(project, dryRun)
+	case "script.build":
+		return rules.FixScriptBuild(project, dryRun)
+	case "script.bundle.for-linux":
+		return rules.FixScriptBundleForLinux(project, dryRun)
 	case "git.hooks":
 		return rules.FixGitHooks(project, dryRun)
 	case "git.hooks.install":

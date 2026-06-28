@@ -27,6 +27,24 @@ var Catalog = []RuleInfo{
 		Fix:         true,
 	},
 	{
+		ID:          "script.install",
+		Description: "script/install/install.go build-then-install helper",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
+		ID:          "script.build",
+		Description: "script/build/build.go native go build helper",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
+		ID:          "script.bundle.for-linux",
+		Description: "script/bundle/for-linux/main.go linux/amd64 bundle helper",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
 		ID:          "git.hooks",
 		Description: "script/git-hooks runner (install, pre-commit, pre-push)",
 		Lint:        false,

@@ -24,8 +24,9 @@ are never reported by lint.
 `--dry-run` previews changes without writing.
 
 **Rule implementations** each own detection and repair for their artifact:
-`.gitignore`, GitHub workflow YAML, `script/generate`, `script/git-hooks`, and
-hook installation into `.git/hooks/`.
+`.gitignore`, GitHub workflow YAML, `script/generate`, `script/install`,
+`script/build`, `script/bundle/for-linux`, `script/git-hooks`, and hook
+installation into `.git/hooks/`.
 
 Tests build the `scaff` binary once per session, materialize temp project
 fixtures, exec the CLI, and assert on exit codes, stdout/stderr, and filesystem
@@ -67,6 +68,18 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
     ├── script-generate/
     │   ├── create-missing/                   creates stub main.go
     │   └── idempotent/                       exists → no-op
+    ├── script-install/
+    │   ├── create-missing/                   creates install.go stub
+    │   ├── idempotent/                       exists → no-op
+    │   └── dry-run/                          preview create, no write
+    ├── script-build/
+    │   ├── create-missing/                   creates build.go stub
+    │   ├── idempotent/                       exists → no-op
+    │   └── dry-run/                          preview create, no write
+    ├── script-bundle-for-linux/
+    │   ├── create-missing/                   creates for-linux main.go stub
+    │   ├── idempotent/                       exists → no-op
+    │   └── dry-run/                          preview create, no write
     ├── git-hooks/
     │   ├── scaffold-missing/                 creates install + no-op hooks
     │   └── idempotent/                       exists → no-op
@@ -100,6 +113,15 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
 | `fix/github-testing-workflow/dry-run` | `--dry-run` previews create without write |
 | `fix/script-generate/create-missing` | Creates `script/generate/main.go` stub |
 | `fix/script-generate/idempotent` | Existing stub is no-op |
+| `fix/script-install/create-missing` | Creates `script/install/install.go` stub |
+| `fix/script-install/idempotent` | Existing install stub is no-op |
+| `fix/script-install/dry-run` | `--dry-run` previews install stub without write |
+| `fix/script-build/create-missing` | Creates `script/build/build.go` stub |
+| `fix/script-build/idempotent` | Existing build stub is no-op |
+| `fix/script-build/dry-run` | `--dry-run` previews build stub without write |
+| `fix/script-bundle-for-linux/create-missing` | Creates `script/bundle/for-linux/main.go` stub |
+| `fix/script-bundle-for-linux/idempotent` | Existing bundle stub is no-op |
+| `fix/script-bundle-for-linux/dry-run` | `--dry-run` previews bundle stub without write |
 | `fix/git-hooks/scaffold-missing` | Scaffolds hook runner without sub-check dirs |
 | `fix/git-hooks/idempotent` | Existing scaffold is no-op |
 | `fix/git-hooks-install/without-scaffold` | Errors with hint when hooks not scaffolded |

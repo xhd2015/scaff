@@ -4,6 +4,9 @@ var AllFixRules = []string{
 	"git.ignore",
 	"github.testing.workflow",
 	"script.generate",
+	"script.install",
+	"script.build",
+	"script.bundle.for-linux",
 	"git.hooks",
 	"git.hooks.install",
 }

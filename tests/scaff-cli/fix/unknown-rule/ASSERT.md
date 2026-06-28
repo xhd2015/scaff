@@ -2,7 +2,7 @@
 
 - Exit code is `2`.
 - Output mentions unknown rule `unknown.rule`.
-- Output lists available rules: `git.ignore`, `github.testing.workflow`, `script.generate`, `git.hooks`, `git.hooks.install`.
+- Output lists available rules: `git.ignore`, `github.testing.workflow`, `script.generate`, `script.install`, `script.build`, `script.bundle.for-linux`, `git.hooks`, `git.hooks.install`.
 
 ## Exit Code
 
@@ -29,6 +29,9 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		"git.ignore",
 		"github.testing.workflow",
 		"script.generate",
+		"script.install",
+		"script.build",
+		"script.bundle.for-linux",
 		"git.hooks",
 		"git.hooks.install",
 	} {
