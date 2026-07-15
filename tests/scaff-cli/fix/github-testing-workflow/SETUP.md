@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix github.testing.workflow
+**Feature**: scaff fix github/testing-workflow
 
 ```
 # create .github/workflows/test.yml when missing
-fix executor -> github.testing.workflow -> test.yml template
+fix executor -> github/testing-workflow -> test.yml template
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> github.testing.workflow -> test.yml template
 ## Steps
 
 1. Materialize workflow file state for the scenario.
-2. Run `scaff fix github.testing.workflow` with optional `--dry-run`.
+2. Run `scaff fix github/testing-workflow` with optional `--dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

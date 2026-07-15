@@ -11,6 +11,11 @@ import (
 const gitHooksPath = "script/git-hooks/main.go"
 
 const gitHooksStub = `// usage: go run ./script/git-hooks <install|pre-commit|pre-push>
+//
+// Proposed behavior (sketch):
+//   1. install: patch .git/hooks/pre-commit and pre-push to invoke this runner.
+//   2. pre-commit: run local checks before commit (stub until customized).
+//   3. pre-push: run local checks before push (stub until customized).
 package main
 
 import (
@@ -110,13 +115,13 @@ func FixGitHooks(project model.Project, dryRun bool) (model.FixResult, error) {
 	path := filepath.Join(project.Root, gitHooksPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "git.hooks",
+			RuleID:  "git/hooks",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", gitHooksPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
-	result := model.FixResult{RuleID: "git.hooks"}
+	result := model.FixResult{RuleID: "git/hooks"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", gitHooksPath)}
 		return result, nil

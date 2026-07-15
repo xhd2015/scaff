@@ -173,6 +173,16 @@ func writeGitHooksMain(dir string) error {
 	return writeFile(dir, "script/git-hooks/main.go", content)
 }
 
+func writeScriptGithubReleaseAssets(dir string) error {
+	// Pre-existing stub for idempotent leaves; marker must survive fix no-op.
+	content := `// existing-release-assets-stub-marker
+package main
+
+func main() {}
+`
+	return writeFile(dir, "script/github/release-assets/main.go", content)
+}
+
 func initGitRepo(dir string) error {
 	cmd := exec.Command("git", "init")
 	cmd.Dir = dir

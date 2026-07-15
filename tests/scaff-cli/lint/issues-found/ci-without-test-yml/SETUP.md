@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: ci.yml does not satisfy github.testing.workflow
+**Feature**: ci.yml does not satisfy github/testing-workflow
 
 ```
 # ci.yml present but test.yml missing -> workflow rule still fails
-Rule github.testing.workflow -> requires test.yml specifically
+Rule github/testing-workflow -> requires test.yml specifically
 ```
 
 ## Preconditions

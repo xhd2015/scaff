@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix git.ignore never adds vendor/
+**Feature**: fix git/ignore never adds vendor/
 
 ```
 # vendored deps may be committed; vendor/ is excluded from patterns
-git.ignore fix -> no vendor/ line
+git/ignore fix -> no vendor/ line
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ git.ignore fix -> no vendor/ line
 
 ## Steps
 
-1. Run `scaff fix git.ignore`.
+1. Run `scaff fix git/ignore`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "git.ignore"}
+	req.Args = []string{"fix", "git/ignore"}
 	return nil
 }
 ```

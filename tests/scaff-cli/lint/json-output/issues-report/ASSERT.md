@@ -2,7 +2,7 @@
 
 - Exit code is `1`.
 - stdout is valid JSON describing a lint report.
-- JSON contains results for `git.ignore` and `github.testing.workflow`.
+- JSON contains results for `git/ignore` and `github/testing-workflow`.
 
 ## Exit Code
 
@@ -40,7 +40,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 	for _, r := range report.Results {
 		found[r.ID] = true
 	}
-	for _, id := range []string{"git.ignore", "github.testing.workflow"} {
+	for _, id := range []string{"git/ignore", "github/testing-workflow"} {
 		if !found[id] {
 			t.Fatalf("expected result for %q in JSON: %s", id, resp.Stdout)
 		}

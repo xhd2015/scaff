@@ -1,7 +1,7 @@
 ## Expected
 
 - Exit code is `1`.
-- Output mentions `git.ignore`.
+- Output mentions `git/ignore`.
 - Output does **not** mention Go-only patterns (`bin/`) or Node-only patterns (`node_modules`).
 
 ## Exit Code
@@ -22,8 +22,8 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatalf("exit code = %d, want 1\n%s", resp.ExitCode, resp.Combined)
 	}
 	out := resp.Combined
-	if !strings.Contains(out, "git.ignore") {
-		t.Fatalf("expected git.ignore in output, got:\n%s", out)
+	if !strings.Contains(out, "git/ignore") {
+		t.Fatalf("expected git/ignore in output, got:\n%s", out)
 	}
 	for _, omit := range []string{"node_modules", "bin/"} {
 		if strings.Contains(out, omit) {

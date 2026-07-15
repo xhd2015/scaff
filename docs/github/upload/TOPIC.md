@@ -9,7 +9,7 @@ description: >-
 # github/upload — credentials and upload ops (docs-only)
 
 This topic documents how release scripts authenticate to GitHub. There is
-**no** scaff fix rule named `github.upload` and no auto-generated credentials
+**no** scaff fix rule named `github/upload` and no auto-generated credentials
 file from `scaff fix`.
 
 ## Credentials file
@@ -36,7 +36,7 @@ Expected shape (illustrative):
 
 ## Operational flow
 
-1. Scaffold release scripts: `scaff fix github.release`
+1. Scaffold release scripts: `scaff fix github/release`
 2. Place credentials locally (not via scaff)
 3. Run `go run ./script/github/release --dry-run` then without dry-run
 
@@ -44,11 +44,11 @@ Expected shape (illustrative):
 
 ```bash
 scaff skill --show github/release
-scaff fix github.release
+scaff fix github/release
 go run ./script/github/release --dry-run
 ```
 
 ## Related topics
 
-- `github/release` — scaffold release scripts (rule `github.release`)
+- `github/release` — scaffold release scripts (rule `github/release`)
 - `git/ignore` — ignore secrets and build artifacts

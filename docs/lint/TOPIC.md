@@ -13,7 +13,7 @@ scaff lint [--dir DIR] [--json] [--profile PROFILE]
 
 ## Behavior
 
-- Runs **lint-enabled** rules only (today: `git.ignore`, `github.testing.workflow`).
+- Runs **lint-enabled** rules only (today: `git/ignore`, `github/testing-workflow`).
 - Exit code non-zero when any rule reports issues (missing/partial).
 - `--json` emits a machine-readable report.
 - `--profile` overrides auto-detect (`go`, `node`, `polyglot`, `generic`).
@@ -46,5 +46,5 @@ scaff lint --profile go
 
 ```bash
 scaff rules
-scaff fix git.ignore --dry-run
+scaff fix git/ignore --dry-run
 ```

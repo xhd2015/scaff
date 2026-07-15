@@ -4,7 +4,7 @@
 
 ```
 # no go.mod or package.json -> generic profile
-git.ignore -> only .DS_Store, .vscode/, *.swp, *~ patterns
+git/ignore -> only .DS_Store, .vscode/, *.swp, *~ patterns
 ```
 
 ## Preconditions

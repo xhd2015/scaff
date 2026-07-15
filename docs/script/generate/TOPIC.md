@@ -1,17 +1,17 @@
 ---
 name: scaff/script/generate
 description: >-
-  Rule script.generate: scaffold script/generate/main.go no-op stub for code
-  generators. Triggers: generate script, script.generate, codegen entrypoint.
+  Rule script/generate: scaffold script/generate/main.go no-op stub for code
+  generators. Triggers: generate script, script/generate, codegen entrypoint.
 ---
 
-# script/generate — rule `script.generate`
+# script/generate — rule `script/generate`
 
 Scaffold a generate entrypoint for project code generators.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `script.generate` |
+| Rule ID | `script/generate` |
 | Lint | no |
 | Fix | yes |
 | Files | `script/generate/main.go` |
@@ -25,8 +25,8 @@ Scaffold a generate entrypoint for project code generators.
 ## CLI
 
 ```bash
-scaff fix script.generate --dry-run
-scaff fix script.generate
+scaff fix script/generate --dry-run
+scaff fix script/generate
 go run ./script/generate
 ```
 

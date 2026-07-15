@@ -14,7 +14,7 @@ const testWorkflowPath = ".github/workflows/test.yml"
 
 func LintGitHubTestingWorkflow(project model.Project) model.RuleResult {
 	result := model.RuleResult{
-		ID:     "github.testing.workflow",
+		ID:     "github/testing-workflow",
 		Paths:  []string{testWorkflowPath},
 		Status: model.RuleOK,
 	}
@@ -37,14 +37,14 @@ func FixGitHubTestingWorkflow(project model.Project, dryRun bool) (model.FixResu
 	path := filepath.Join(project.Root, testWorkflowPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "github.testing.workflow",
+			RuleID:  "github/testing-workflow",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", testWorkflowPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
 	content := testWorkflowTemplate(detectGoVersion(project.Root))
-	result := model.FixResult{RuleID: "github.testing.workflow"}
+	result := model.FixResult{RuleID: "github/testing-workflow"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", testWorkflowPath)}
 		return result, nil

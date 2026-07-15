@@ -1,17 +1,17 @@
 ---
 name: scaff/install-via-curl
 description: >-
-  Rule install.via.curl: scaffold install-via-curl.sh curl installer at repo
-  root. Triggers: curl install script, install-via-curl, install.via.curl.
+  Rule install/via-curl: scaffold install-via-curl.sh curl installer at repo
+  root. Triggers: curl install script, install-via-curl, install/via-curl.
 ---
 
-# install-via-curl — rule `install.via.curl`
+# install-via-curl — rule `install/via-curl`
 
 Scaffold a root-level curl installer script for release binaries.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `install.via.curl` |
+| Rule ID | `install/via-curl` |
 | Lint | no |
 | Fix | yes |
 | Files | `install-via-curl.sh` |
@@ -27,8 +27,8 @@ Scaffold a root-level curl installer script for release binaries.
 ## CLI
 
 ```bash
-scaff fix install.via.curl --dry-run
-scaff fix install.via.curl
+scaff fix install/via-curl --dry-run
+scaff fix install/via-curl
 # after publishing releases, end users may:
 # curl -fsSL .../install-via-curl.sh | bash
 ```

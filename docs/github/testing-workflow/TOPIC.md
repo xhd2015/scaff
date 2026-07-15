@@ -1,17 +1,17 @@
 ---
 name: scaff/github/testing-workflow
 description: >-
-  Rule github.testing.workflow: ensure .github/workflows/test.yml runs go test
-  and doctest. Triggers: missing CI, add test workflow, github.testing.workflow.
+  Rule github/testing-workflow: ensure .github/workflows/test.yml runs go test
+  and doctest. Triggers: missing CI, add test workflow, github/testing-workflow.
 ---
 
-# github/testing-workflow — rule `github.testing.workflow`
+# github/testing-workflow — rule `github/testing-workflow`
 
 Ensure a GitHub Actions test workflow exists for the project.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `github.testing.workflow` |
+| Rule ID | `github/testing-workflow` |
 | Lint | yes |
 | Fix | yes |
 | Files | `.github/workflows/test.yml` |
@@ -28,8 +28,8 @@ Ensure a GitHub Actions test workflow exists for the project.
 
 ```bash
 scaff lint
-scaff fix github.testing.workflow --dry-run
-scaff fix github.testing.workflow
+scaff fix github/testing-workflow --dry-run
+scaff fix github/testing-workflow
 ```
 
 ## Idempotency

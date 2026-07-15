@@ -13,7 +13,13 @@ const (
 	githubReleaseLibPath  = "script/github/lib/build_release.go"
 )
 
-const githubReleaseMainTemplate = `package main
+const githubReleaseMainTemplate = `// usage: go run ./script/github/release [--dry-run]
+//
+// Proposed behavior (sketch):
+//   1. Parse --dry-run / --help flags.
+//   2. Dry-run: print tag, planned artifacts, and upload target without writing.
+//   3. Live: load credentials, build multi-platform assets, create/upload GitHub Release.
+package main
 
 import (
 	"fmt"
@@ -107,7 +113,13 @@ func handleDryRun() error {
 }
 `
 
-const githubReleaseLibTemplate = `package lib
+const githubReleaseLibTemplate = `// usage: imported by go run ./script/github/release (shared release helpers)
+//
+// Proposed behavior (sketch):
+//   1. Expose DefaultSpecs for multi-platform release builds.
+//   2. BuildRelease runs optional pre-build steps then release.BuildRelease.
+//   3. Callers pass specs; name/module placeholders are substituted at scaffold time.
+package lib
 
 import (
 	"github.com/xhd2015/kool/pkgs/release"
@@ -135,12 +147,12 @@ func FixGithubRelease(project model.Project, dryRun bool) (model.FixResult, erro
 
 	if mainExists && libExists {
 		return model.FixResult{
-			RuleID:  "github.release",
+			RuleID:  "github/release",
 			Actions: []string{fmt.Sprintf("%s and %s already exist, nothing to do", githubReleaseMainPath, githubReleaseLibPath)},
 		}, nil
 	}
 
-	result := model.FixResult{RuleID: "github.release"}
+	result := model.FixResult{RuleID: "github/release"}
 	var actions []string
 
 	if !mainExists {

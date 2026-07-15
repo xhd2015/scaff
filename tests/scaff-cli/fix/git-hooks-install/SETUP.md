@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix git.hooks.install
+**Feature**: scaff fix git/hooks/install
 
 ```
-# patch .git/hooks when git.hooks scaffold exists
-fix executor -> git.hooks.install -> pre-commit/pre-push markers
+# patch .git/hooks when git/hooks scaffold exists
+fix executor -> git/hooks/install -> pre-commit/pre-push markers
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> git.hooks.install -> pre-commit/pre-push markers
 ## Steps
 
 1. Materialize git repo and hook scaffold state.
-2. Run `scaff fix git.hooks.install`.
+2. Run `scaff fix git/hooks/install`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

@@ -12,6 +12,11 @@ const scriptInstallPath = "script/install/install.go"
 
 const scriptInstallStub = `// usage: go run ./script/install
 // build via go run ./script/build; then go install
+//
+// Proposed behavior (sketch):
+//   1. Build the project via go run ./script/build.
+//   2. Install the module with go install .
+//   3. Exit non-zero if either step fails.
 package main
 
 import (
@@ -46,13 +51,13 @@ func FixScriptInstall(project model.Project, dryRun bool) (model.FixResult, erro
 	path := filepath.Join(project.Root, scriptInstallPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "script.install",
+			RuleID:  "script/install",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", scriptInstallPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
-	result := model.FixResult{RuleID: "script.install"}
+	result := model.FixResult{RuleID: "script/install"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", scriptInstallPath)}
 		return result, nil

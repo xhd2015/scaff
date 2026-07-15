@@ -3,7 +3,7 @@
 **Feature**: lint empty Go project reports only default rules
 
 ```
-# go.mod only -> git.ignore + github.testing.workflow issues
+# go.mod only -> git/ignore + github/testing-workflow issues
 lint orchestrator -> two default rules only (no opt-in rules)
 ```
 

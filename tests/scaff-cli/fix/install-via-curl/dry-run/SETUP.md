@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix install.via.curl --dry-run
+**Feature**: fix install/via-curl --dry-run
 
 ```
 # --dry-run reports would-create without writing installer
-install.via.curl fix --dry-run -> preview only
+install/via-curl fix --dry-run -> preview only
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ install.via.curl fix --dry-run -> preview only
 
 ## Steps
 
-1. Run `scaff fix install.via.curl --dry-run`.
+1. Run `scaff fix install/via-curl --dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "install.via.curl", "--dry-run"}
+	req.Args = []string{"fix", "install/via-curl", "--dry-run"}
 	return nil
 }
 ```

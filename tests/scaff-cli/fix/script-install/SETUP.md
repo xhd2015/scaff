@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix script.install
+**Feature**: scaff fix script/install
 
 ```
 # create script/install/install.go stub when missing
-fix executor -> script.install -> build-then-install helper stub
+fix executor -> script/install -> build-then-install helper stub
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> script.install -> build-then-install helper stub
 ## Steps
 
 1. Materialize `script/install/install.go` state for the scenario.
-2. Run `scaff fix script.install` with case-specific flags.
+2. Run `scaff fix script/install` with case-specific flags.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

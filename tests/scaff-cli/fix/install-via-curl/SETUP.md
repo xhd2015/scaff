@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix install.via.curl
+**Feature**: scaff fix install/via-curl
 
 ```
 # scaffold install-via-curl.sh at repo root from go.mod metadata
-fix executor -> install.via.curl -> curl installer script
+fix executor -> install/via-curl -> curl installer script
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> install.via.curl -> curl installer script
 ## Steps
 
 1. Materialize installer script state for the scenario.
-2. Run `scaff fix install.via.curl` with optional `--dry-run`.
+2. Run `scaff fix install/via-curl` with optional `--dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

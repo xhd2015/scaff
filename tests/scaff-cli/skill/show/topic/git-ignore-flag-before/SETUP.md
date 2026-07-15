@@ -4,7 +4,7 @@
 
 ```
 # flag-before-path order
-scaff skill --show git/ignore -> name: scaff/git/ignore / rule git.ignore
+scaff skill --show git/ignore -> name: scaff/git/ignore / rule git/ignore
 ```
 
 ## Preconditions

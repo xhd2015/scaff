@@ -1,18 +1,18 @@
 ---
 name: scaff/git/ignore
 description: >-
-  Rule git.ignore: ensure .gitignore has common patterns for the project
+  Rule git/ignore: ensure .gitignore has common patterns for the project
   profile. Triggers: missing gitignore, add node_modules, ignore bin/,
-  git.ignore fix.
+  git/ignore fix.
 ---
 
-# git/ignore — rule `git.ignore`
+# git/ignore — rule `git/ignore`
 
 Ensure `.gitignore` includes profile-appropriate ignore patterns.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `git.ignore` |
+| Rule ID | `git/ignore` |
 | Lint | yes |
 | Fix | yes |
 | Files | `.gitignore` |
@@ -23,16 +23,16 @@ Ensure `.gitignore` includes profile-appropriate ignore patterns.
   profile (`go`, `node`, `polyglot`, `generic`). Reports missing patterns.
 - **Fix**: appends only missing patterns (idempotent). Does not rewrite the
   whole file.
-- **Dry-run**: `scaff fix git.ignore --dry-run` lists patterns that would be
+- **Dry-run**: `scaff fix git/ignore --dry-run` lists patterns that would be
   appended without writing.
 
 ## CLI
 
 ```bash
 scaff lint
-scaff fix git.ignore --dry-run
-scaff fix git.ignore
-scaff fix git.ignore --dir ./my-app
+scaff fix git/ignore --dry-run
+scaff fix git/ignore
+scaff fix git/ignore --dir ./my-app
 ```
 
 ## Idempotency

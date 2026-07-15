@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix script.build
+**Feature**: scaff fix script/build
 
 ```
 # create script/build/build.go stub when missing
-fix executor -> script.build -> native go build helper stub
+fix executor -> script/build -> native go build helper stub
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> script.build -> native go build helper stub
 ## Steps
 
 1. Materialize `script/build/build.go` state for the scenario.
-2. Run `scaff fix script.build` with case-specific flags.
+2. Run `scaff fix script/build` with case-specific flags.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

@@ -190,7 +190,7 @@ Usage:
   scaff skill --show|--install|--list [options]
 
 Commands:
-  lint    audit default rules (git.ignore, github.testing.workflow)
+  lint    audit default rules (git/ignore, github/testing-workflow)
   fix     apply one scaffolding rule
   rules   list lint and fix rules
   skill   show, install, or list embedded multi-topic skill docs

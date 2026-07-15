@@ -21,27 +21,29 @@ scaff fix <rule> [--dir DIR] [--dry-run]
 ## Examples
 
 ```bash
-scaff fix git.ignore --dry-run
-scaff fix git.ignore
-scaff fix github.testing.workflow --dir ./svc
-scaff fix script.build
-scaff fix install.via.curl
+scaff fix git/ignore --dry-run
+scaff fix git/ignore
+scaff fix github/testing-workflow --dir ./svc
+scaff fix script/build
+scaff fix script/github/release-assets
+scaff fix install/via-curl
 ```
 
 ## Fix rule IDs
 
 | Rule ID | Topic path |
 |---------|------------|
-| `git.ignore` | `git/ignore` |
-| `git.hooks` | `git/hooks` |
-| `git.hooks.install` | `git/hooks/install` |
-| `github.testing.workflow` | `github/testing-workflow` |
-| `github.release` | `github/release` |
-| `script.generate` | `script/generate` |
-| `script.install` | `script/install` |
-| `script.build` | `script/build` |
-| `script.bundle.for-linux` | `script/bundle-for-linux` |
-| `install.via.curl` | `install-via-curl` |
+| `git/ignore` | `git/ignore` |
+| `git/hooks` | `git/hooks` |
+| `git/hooks/install` | `git/hooks/install` |
+| `github/testing-workflow` | `github/testing-workflow` |
+| `github/release` | `github/release` |
+| `script/generate` | `script/generate` |
+| `script/install` | `script/install` |
+| `script/build` | `script/build` |
+| `script/bundle/for-linux` | `script/bundle-for-linux` |
+| `script/github/release-assets` | `script/github/release-assets` |
+| `install/via-curl` | `install-via-curl` |
 
 There is **no** fix rule for GitHub upload credentials (`github/upload` is docs-only).
 

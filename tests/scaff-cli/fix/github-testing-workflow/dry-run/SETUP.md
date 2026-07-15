@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix github.testing.workflow --dry-run
+**Feature**: fix github/testing-workflow --dry-run
 
 ```
 # --dry-run reports would-create without writing test.yml
-github.testing.workflow fix --dry-run -> preview only
+github/testing-workflow fix --dry-run -> preview only
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ github.testing.workflow fix --dry-run -> preview only
 
 ## Steps
 
-1. Run `scaff fix github.testing.workflow --dry-run`.
+1. Run `scaff fix github/testing-workflow --dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "github.testing.workflow", "--dry-run"}
+	req.Args = []string{"fix", "github/testing-workflow", "--dry-run"}
 	return nil
 }
 ```

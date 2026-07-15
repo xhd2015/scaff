@@ -13,7 +13,7 @@ const gitignorePath = ".gitignore"
 
 func LintGitIgnore(project model.Project) model.RuleResult {
 	result := model.RuleResult{
-		ID:     "git.ignore",
+		ID:     "git/ignore",
 		Paths:  []string{gitignorePath},
 		Status: model.RuleOK,
 	}
@@ -56,7 +56,7 @@ func FixGitIgnore(project model.Project, dryRun bool) (model.FixResult, error) {
 		existing = string(content)
 	}
 	missing := missingPatterns(existing, expected)
-	result := model.FixResult{RuleID: "git.ignore"}
+	result := model.FixResult{RuleID: "git/ignore"}
 	if len(missing) == 0 {
 		result.Actions = []string{"all patterns present, nothing to do"}
 		return result, nil

@@ -3,7 +3,7 @@
 **Feature**: show `github/release` topic
 
 ```
-scaff skill --show github/release -> name: scaff/github/release / github.release
+scaff skill --show github/release -> name: scaff/github/release / github/release
 ```
 
 ## Preconditions

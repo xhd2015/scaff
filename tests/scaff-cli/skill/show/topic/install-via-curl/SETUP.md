@@ -3,7 +3,7 @@
 **Feature**: show `install-via-curl` topic
 
 ```
-scaff skill --show install-via-curl -> name: scaff/install-via-curl / install.via.curl
+scaff skill --show install-via-curl -> name: scaff/install-via-curl / install/via-curl
 ```
 
 ## Preconditions

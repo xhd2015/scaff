@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: lint reports partial git.ignore
+**Feature**: lint reports partial git/ignore
 
 ```
-# .gitignore missing .vscode/ -> git.ignore partial/missing
-Rule git.ignore -> partial status for missing pattern
+# .gitignore missing .vscode/ -> git/ignore partial/missing
+Rule git/ignore -> partial status for missing pattern
 ```
 
 ## Preconditions

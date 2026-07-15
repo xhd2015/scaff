@@ -9,26 +9,28 @@ import (
 
 func Apply(project model.Project, ruleID string, dryRun bool) (model.FixResult, error) {
 	switch ruleID {
-	case "git.ignore":
+	case "git/ignore":
 		return rules.FixGitIgnore(project, dryRun)
-	case "github.testing.workflow":
+	case "github/testing-workflow":
 		return rules.FixGitHubTestingWorkflow(project, dryRun)
-	case "script.generate":
+	case "script/generate":
 		return rules.FixScriptGenerate(project, dryRun)
-	case "script.install":
+	case "script/install":
 		return rules.FixScriptInstall(project, dryRun)
-	case "script.build":
+	case "script/build":
 		return rules.FixScriptBuild(project, dryRun)
-	case "script.bundle.for-linux":
+	case "script/bundle/for-linux":
 		return rules.FixScriptBundleForLinux(project, dryRun)
-	case "git.hooks":
+	case "git/hooks":
 		return rules.FixGitHooks(project, dryRun)
-	case "git.hooks.install":
+	case "git/hooks/install":
 		return rules.FixGitHooksInstall(project, dryRun)
-	case "github.release":
+	case "github/release":
 		return rules.FixGithubRelease(project, dryRun)
-	case "install.via.curl":
+	case "install/via-curl":
 		return rules.FixInstallViaCurl(project, dryRun)
+	case "script/github/release-assets":
+		return rules.FixScriptGithubReleaseAssets(project, dryRun)
 	default:
 		return model.FixResult{}, fmt.Errorf("unknown rule %q", ruleID)
 	}

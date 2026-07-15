@@ -122,14 +122,14 @@ func FixInstallViaCurl(project model.Project, dryRun bool) (model.FixResult, err
 	path := filepath.Join(project.Root, installViaCurlPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "install.via.curl",
+			RuleID:  "install/via-curl",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", installViaCurlPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
 
-	result := model.FixResult{RuleID: "install.via.curl"}
+	result := model.FixResult{RuleID: "install/via-curl"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", installViaCurlPath)}
 		return result, nil

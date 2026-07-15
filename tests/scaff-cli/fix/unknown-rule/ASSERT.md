@@ -2,7 +2,7 @@
 
 - Exit code is `2`.
 - Output mentions unknown rule `unknown.rule`.
-- Output lists available rules: `git.ignore`, `github.testing.workflow`, `script.generate`, `script.install`, `script.build`, `script.bundle.for-linux`, `git.hooks`, `git.hooks.install`, `github.release`, `install.via.curl`.
+- Output lists available rules: `git/ignore`, `github/testing-workflow`, `script/generate`, `script/install`, `script/build`, `script/bundle/for-linux`, `git/hooks`, `git/hooks/install`, `github/release`, `install/via-curl`, `script/github/release-assets`.
 
 ## Exit Code
 
@@ -26,16 +26,17 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatalf("expected unknown.rule in output, got:\n%s", out)
 	}
 	for _, rule := range []string{
-		"git.ignore",
-		"github.testing.workflow",
-		"script.generate",
-		"script.install",
-		"script.build",
-		"script.bundle.for-linux",
-		"git.hooks",
-		"git.hooks.install",
-		"github.release",
-		"install.via.curl",
+		"git/ignore",
+		"github/testing-workflow",
+		"script/generate",
+		"script/install",
+		"script/build",
+		"script/bundle/for-linux",
+		"git/hooks",
+		"git/hooks/install",
+		"github/release",
+		"install/via-curl",
+		"script/github/release-assets",
 	} {
 		if !strings.Contains(out, rule) {
 			t.Fatalf("expected available rule %q in output, got:\n%s", rule, out)

@@ -11,6 +11,11 @@ import (
 const scriptBuildPath = "script/build/build.go"
 
 const scriptBuildStub = `// usage: go run ./script/build (go build -o bin/app)
+//
+// Proposed behavior (sketch):
+//   1. Parse optional flags if any (default: native go build).
+//   2. Run go build -o bin/app for the module root.
+//   3. Exit non-zero on build failure.
 package main
 
 import (
@@ -37,13 +42,13 @@ func FixScriptBuild(project model.Project, dryRun bool) (model.FixResult, error)
 	path := filepath.Join(project.Root, scriptBuildPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "script.build",
+			RuleID:  "script/build",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", scriptBuildPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
-	result := model.FixResult{RuleID: "script.build"}
+	result := model.FixResult{RuleID: "script/build"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", scriptBuildPath)}
 		return result, nil

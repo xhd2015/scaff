@@ -1,7 +1,7 @@
 ## Expected
 
 - Exit code is `0`.
-- Same identity markers as flag-before order: `name: scaff/git/ignore` and/or `git.ignore`.
+- Same identity markers as flag-before order: `name: scaff/git/ignore` and/or `git/ignore`.
 
 ## Side Effects
 
@@ -26,9 +26,9 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 	}
 	out := resp.Stdout
 	hasName := strings.Contains(out, "name: scaff/git/ignore")
-	hasRule := strings.Contains(out, "git.ignore")
+	hasRule := strings.Contains(out, "git/ignore")
 	if !hasName && !hasRule {
-		t.Fatalf("expected name: scaff/git/ignore or rule git.ignore, got:\n%s", out)
+		t.Fatalf("expected name: scaff/git/ignore or rule git/ignore, got:\n%s", out)
 	}
 }
 ```

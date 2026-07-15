@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix github.release
+**Feature**: scaff fix github/release
 
 ```
 # scaffold script/github/release + lib from go.mod metadata
-fix executor -> github.release -> release scripts under script/github/
+fix executor -> github/release -> release scripts under script/github/
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> github.release -> release scripts under script/github/
 ## Steps
 
 1. Materialize release script file state for the scenario.
-2. Run `scaff fix github.release` with optional `--dry-run`.
+2. Run `scaff fix github/release` with optional `--dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

@@ -4,7 +4,7 @@
 
 ```
 # missing test.yml -> create with go test + doctest steps
-github.testing.workflow fix -> embedded template
+github/testing-workflow fix -> embedded template
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ github.testing.workflow fix -> embedded template
 
 ## Steps
 
-1. Run `scaff fix github.testing.workflow`.
+1. Run `scaff fix github/testing-workflow`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "github.testing.workflow"}
+	req.Args = []string{"fix", "github/testing-workflow"}
 	return nil
 }
 ```

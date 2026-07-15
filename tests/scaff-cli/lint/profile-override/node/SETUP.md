@@ -4,7 +4,7 @@
 
 ```
 # polyglot signals overridden to node profile
---profile node -> git.ignore expects node_modules/
+--profile node -> git/ignore expects node_modules/
 ```
 
 ## Preconditions

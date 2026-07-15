@@ -37,8 +37,8 @@ scaff rules [--json]
 
 Default lint rules:
 
-- `git.ignore`
-- `github.testing.workflow`
+- `git/ignore`
+- `github/testing-workflow`
 
 All other catalog rules are fix-only (or docs-only for `github/upload`).
 

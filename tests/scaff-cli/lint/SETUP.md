@@ -18,7 +18,7 @@ scaff lint [flags] -> LintReport -> stdout/stderr + exit code
 
 ## Context
 
-- Default lint rules: `git.ignore`, `github.testing.workflow` only.
+- Default lint rules: `git/ignore`, `github/testing-workflow` only.
 - Exit 0 when all default rules pass; exit 1 when issues are found.
 
 ```go

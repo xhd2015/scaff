@@ -16,12 +16,12 @@ subcommands `lint` (read-only audit), `fix <rule>` (idempotent repair), and
 `go.mod` and `package.json` (`go`, `node`, `polyglot`, or `generic`). The
 `--profile` flag overrides detection.
 
-**Lint orchestrator** runs default rules only: `git.ignore` (expected patterns
-per profile) and `github.testing.workflow` (requires `.github/workflows/test.yml`
-specifically). Opt-in rules (`script.generate`, `git.hooks`, `git.hooks.install`)
+**Lint orchestrator** runs default rules only: `git/ignore` (expected patterns
+per profile) and `github/testing-workflow` (requires `.github/workflows/test.yml`
+specifically). Opt-in rules (`script/generate`, `git/hooks`, `git/hooks/install`)
 are never reported by lint.
 
-**Fix executor** applies one dotted rule at a time, merging non-destructively
+**Fix executor** applies one slash-form rule at a time, merging non-destructively
 (append missing `.gitignore` lines, create missing files, scaffold hooks).
 `--dry-run` previews changes without writing.
 
@@ -29,11 +29,13 @@ are never reported by lint.
 `.gitignore`, GitHub workflow YAML, `script/generate`, `script/install`,
 `script/build`, `script/bundle/for-linux`, `script/git-hooks`, hook
 installation into `.git/hooks/`, GitHub release scripts under
-`script/github/`, and the root `install-via-curl.sh` curl installer.
+`script/github/`, release-assets helper under `script/github/release-assets/`,
+and the root `install-via-curl.sh` curl installer.
 
-Opt-in fix rules `github.release` and `install.via.curl` substitute project
-metadata from `go.mod` (`__NAME__`, `__OWNER__`, `__REPO__`) into scaffolded
-templates; they are not part of default lint.
+Opt-in fix rules `github/release`, `install/via-curl`, and
+`script/github/release-assets` are not part of default lint. Release and curl
+rules may substitute project metadata from `go.mod` (`__NAME__`, `__OWNER__`,
+`__REPO__`) into scaffolded templates.
 
 **Skill host** embeds a Shape 3 multi-topic skill (`docs/SKILL.md` + nested
 `docs/<path>/TOPIC.md` via `docs/embed.go` and `skillcmd.SingleSkill`). Users
@@ -56,7 +58,7 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 ├── lint/                                     Command=lint
 │   ├── issues-found/                         exit 1 — scaffold gaps
 │   │   ├── empty-go-project/                 go.mod only; 2 rules; no opt-in rules
-│   │   ├── partial-gitignore/                missing .vscode/ → partial git.ignore
+│   │   ├── partial-gitignore/                missing .vscode/ → partial git/ignore
 │   │   └── ci-without-test-yml/              ci.yml present, test.yml missing
 │   ├── all-pass/                             exit 0
 │   │   └── complete-project/                 full gitignore + test.yml
@@ -100,18 +102,22 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 │   │   ├── scaffold-missing/                 creates install + no-op hooks
 │   │   └── idempotent/                       exists → no-op
 │   ├── git-hooks-install/
-│   │   ├── without-scaffold/                 error + hint to fix git.hooks
+│   │   ├── without-scaffold/                 error + hint to fix git/hooks
 │   │   ├── patches-hooks/                    git repo → patches pre-commit/pre-push
 │   │   └── non-git/                          no .git → error
-│   ├── github-release/                       Rule=github.release
+│   ├── github-release/                       Rule=github/release
 │   │   ├── create-missing/                   go.mod → release main + lib
 │   │   ├── partial-scaffold/                 main exists → create lib only
 │   │   ├── idempotent/                       both exist → no-op
 │   │   └── dry-run/                          preview paths, no write
-│   └── install-via-curl/                     Rule=install.via.curl
-│       ├── create-missing/                   curl installer at repo root
+│   ├── install-via-curl/                     Rule=install/via-curl
+│   │   ├── create-missing/                   curl installer at repo root
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview only
+│   └── script-github-release-assets/            Rule=script/github/release-assets
+│       ├── create-missing/                   creates main.go + Proposed behavior
 │       ├── idempotent/                       exists → no-op
-│       └── dry-run/                          preview only
+│       └── dry-run/                          preview create, no write
 │
 └── skill/                                    Command=skill (multi-topic skillcmd)
     ├── list/
@@ -142,8 +148,8 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 | Leaf | Description |
 |------|-------------|
 | `lint/issues-found/empty-go-project` | Empty Go project reports only default lint rules |
-| `lint/issues-found/partial-gitignore` | Partial `.gitignore` yields partial/missing git.ignore |
-| `lint/issues-found/ci-without-test-yml` | `ci.yml` does not satisfy github.testing.workflow |
+| `lint/issues-found/partial-gitignore` | Partial `.gitignore` yields partial/missing git/ignore |
+| `lint/issues-found/ci-without-test-yml` | `ci.yml` does not satisfy github/testing-workflow |
 | `lint/all-pass/complete-project` | Complete scaffold exits 0 |
 | `lint/json-output/issues-report` | `--json` emits valid structured lint report |
 | `lint/profile-override/node` | `--profile node` checks node_modules pattern |
@@ -182,6 +188,9 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 | `fix/install-via-curl/create-missing` | Creates `install-via-curl.sh` with GitHub URL patterns |
 | `fix/install-via-curl/idempotent` | Existing installer script is no-op |
 | `fix/install-via-curl/dry-run` | `--dry-run` previews without writing installer |
+| `fix/script-github-release-assets/create-missing` | Creates `script/github/release-assets/main.go` with Proposed behavior + help |
+| `fix/script-github-release-assets/idempotent` | Existing release-assets stub is no-op |
+| `fix/script-github-release-assets/dry-run` | `--dry-run` previews release-assets stub without write |
 | `skill/list/full-inventory` | `skill --list` prints `scaff` then full sorted topic inventory |
 | `skill/show/root` | `skill --show` root body: `name: scaff`, retrieve examples, no install flags |
 | `skill/show/header` | `skill --show --header` prints YAML delimiters only |

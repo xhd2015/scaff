@@ -1,19 +1,20 @@
 package rules
 
 var AllFixRules = []string{
-	"git.ignore",
-	"github.testing.workflow",
-	"script.generate",
-	"script.install",
-	"script.build",
-	"script.bundle.for-linux",
-	"git.hooks",
-	"git.hooks.install",
-	"github.release",
-	"install.via.curl",
+	"git/ignore",
+	"github/testing-workflow",
+	"script/generate",
+	"script/install",
+	"script/build",
+	"script/bundle/for-linux",
+	"git/hooks",
+	"git/hooks/install",
+	"github/release",
+	"install/via-curl",
+	"script/github/release-assets",
 }
 
 var DefaultLintRules = []string{
-	"git.ignore",
-	"github.testing.workflow",
+	"git/ignore",
+	"github/testing-workflow",
 }

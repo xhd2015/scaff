@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix github.release creates release scaffold
+**Feature**: fix github/release creates release scaffold
 
 ```
 # no release scripts -> create main + lib with module substitutions
-github.release fix -> script/github/release + script/github/lib
+github/release fix -> script/github/release + script/github/lib
 ```
 
 ## Preconditions
@@ -14,11 +14,11 @@ github.release fix -> script/github/release + script/github/lib
 ## Steps
 
 1. Ensure `script/github/release/main.go` and `script/github/lib/build_release.go` are absent.
-2. Run `scaff fix github.release`.
+2. Run `scaff fix github/release`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "github.release"}
+	req.Args = []string{"fix", "github/release"}
 	return nil
 }
 ```

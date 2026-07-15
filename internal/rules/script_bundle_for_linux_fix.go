@@ -14,6 +14,11 @@ const scriptBundleForLinuxStub = `// usage: go run ./script/bundle/for-linux
 //
 // Cross-compiles the binary for linux/amd64.
 // The resulting artifact is written to ./app-linux-amd64 in the module root.
+//
+// Proposed behavior (sketch):
+//   1. Parse -o/--output (default app-linux-amd64).
+//   2. Cross-compile with GOOS=linux GOARCH=amd64 CGO_ENABLED=0.
+//   3. Write the binary under the module root and print its path.
 package main
 
 import (
@@ -72,13 +77,13 @@ func FixScriptBundleForLinux(project model.Project, dryRun bool) (model.FixResul
 	path := filepath.Join(project.Root, scriptBundleForLinuxPath)
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
-			RuleID:  "script.bundle.for-linux",
+			RuleID:  "script/bundle/for-linux",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", scriptBundleForLinuxPath)},
 		}, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}
-	result := model.FixResult{RuleID: "script.bundle.for-linux"}
+	result := model.FixResult{RuleID: "script/bundle/for-linux"}
 	if dryRun {
 		result.Actions = []string{fmt.Sprintf("dry-run: would create %s", scriptBundleForLinuxPath)}
 		return result, nil

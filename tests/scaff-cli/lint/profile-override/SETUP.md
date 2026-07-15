@@ -4,12 +4,12 @@
 
 ```
 # --profile overrides auto-detected project profile
-Project detector <- --profile flag -> git.ignore pattern set
+Project detector <- --profile flag -> git/ignore pattern set
 ```
 
 ## Preconditions
 
-- Profile detection or override affects expected `git.ignore` patterns.
+- Profile detection or override affects expected `git/ignore` patterns.
 
 ## Steps
 

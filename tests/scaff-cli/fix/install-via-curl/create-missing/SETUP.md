@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix install.via.curl creates installer script
+**Feature**: fix install/via-curl creates installer script
 
 ```
 # no install-via-curl.sh -> create bash installer with GitHub release URLs
-install.via.curl fix -> install-via-curl.sh at repo root
+install/via-curl fix -> install-via-curl.sh at repo root
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ install.via.curl fix -> install-via-curl.sh at repo root
 
 ## Steps
 
-1. Run `scaff fix install.via.curl`.
+1. Run `scaff fix install/via-curl`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "install.via.curl"}
+	req.Args = []string{"fix", "install/via-curl"}
 	return nil
 }
 ```

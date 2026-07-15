@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix script.install is idempotent
+**Feature**: fix script/install is idempotent
 
 ```
 # existing install stub -> no-op
-script.install fix -> nothing to do
+script/install fix -> nothing to do
 ```
 
 ## Preconditions
@@ -14,14 +14,14 @@ script.install fix -> nothing to do
 ## Steps
 
 1. Write existing stub.
-2. Run `scaff fix script.install`.
+2. Run `scaff fix script/install`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
 	if err := writeScriptInstall(req.ProjectDir); err != nil {
 		return err
 	}
-	req.Args = []string{"fix", "script.install"}
+	req.Args = []string{"fix", "script/install"}
 	return nil
 }
 ```

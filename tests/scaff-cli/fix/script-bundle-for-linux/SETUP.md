@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix script.bundle.for-linux
+**Feature**: scaff fix script/bundle/for-linux
 
 ```
 # create script/bundle/for-linux/main.go stub when missing
-fix executor -> script.bundle.for-linux -> cross-compile bundle helper stub
+fix executor -> script/bundle/for-linux -> cross-compile bundle helper stub
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> script.bundle.for-linux -> cross-compile bundle helper stub
 ## Steps
 
 1. Materialize `script/bundle/for-linux/main.go` state for the scenario.
-2. Run `scaff fix script.bundle.for-linux` with case-specific flags.
+2. Run `scaff fix script/bundle/for-linux` with case-specific flags.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

@@ -9,9 +9,9 @@ func Lint(project model.Project) model.LintReport {
 	report := model.LintReport{Project: project}
 	for _, ruleID := range rules.DefaultLintRules {
 		switch ruleID {
-		case "git.ignore":
+		case "git/ignore":
 			report.Results = append(report.Results, rules.LintGitIgnore(project))
-		case "github.testing.workflow":
+		case "github/testing-workflow":
 			report.Results = append(report.Results, rules.LintGitHubTestingWorkflow(project))
 		}
 	}

@@ -1,17 +1,17 @@
 ---
 name: scaff/script/install
 description: >-
-  Rule script.install: scaffold script/install/install.go build-then-install
-  helper. Triggers: install script, go install helper, script.install.
+  Rule script/install: scaffold script/install/install.go build-then-install
+  helper. Triggers: install script, go install helper, script/install.
 ---
 
-# script/install — rule `script.install`
+# script/install — rule `script/install`
 
 Scaffold a build-then-install helper.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `script.install` |
+| Rule ID | `script/install` |
 | Lint | no |
 | Fix | yes |
 | Files | `script/install/install.go` |
@@ -25,8 +25,8 @@ Scaffold a build-then-install helper.
 ## CLI
 
 ```bash
-scaff fix script.install --dry-run
-scaff fix script.install
+scaff fix script/install --dry-run
+scaff fix script/install
 go run ./script/install
 ```
 

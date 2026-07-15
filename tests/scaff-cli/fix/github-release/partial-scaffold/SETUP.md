@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix github.release creates missing lib only
+**Feature**: fix github/release creates missing lib only
 
 ```
 # release main exists, lib missing -> create lib without overwriting main
-github.release fix -> append missing build_release.go
+github/release fix -> append missing build_release.go
 ```
 
 ## Preconditions
@@ -15,7 +15,7 @@ github.release fix -> append missing build_release.go
 ## Steps
 
 1. Write custom release `main.go`.
-2. Run `scaff fix github.release`.
+2. Run `scaff fix github/release`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
@@ -23,7 +23,7 @@ func Setup(t *testing.T, req *Request) error {
 	if err := writeGithubReleaseMain(req.ProjectDir, customMain); err != nil {
 		return err
 	}
-	req.Args = []string{"fix", "github.release"}
+	req.Args = []string{"fix", "github/release"}
 	return nil
 }
 ```

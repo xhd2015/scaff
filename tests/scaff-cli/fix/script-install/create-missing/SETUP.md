@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix script.install creates stub
+**Feature**: fix script/install creates stub
 
 ```
 # missing script/install/install.go -> create install helper stub
-script.install fix -> script/install/install.go
+script/install fix -> script/install/install.go
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ script.install fix -> script/install/install.go
 
 ## Steps
 
-1. Run `scaff fix script.install`.
+1. Run `scaff fix script/install`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "script.install"}
+	req.Args = []string{"fix", "script/install"}
 	return nil
 }
 ```

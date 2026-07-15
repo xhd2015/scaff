@@ -1,18 +1,18 @@
 ---
 name: scaff/script/bundle-for-linux
 description: >-
-  Rule script.bundle.for-linux: scaffold script/bundle/for-linux/main.go
+  Rule script/bundle/for-linux: scaffold script/bundle/for-linux/main.go
   linux/amd64 cross-compile helper. Triggers: linux bundle, cross compile,
-  script.bundle.for-linux.
+  script/bundle/for-linux.
 ---
 
-# script/bundle-for-linux — rule `script.bundle.for-linux`
+# script/bundle-for-linux — rule `script/bundle/for-linux`
 
 Scaffold a linux/amd64 cross-compile helper.
 
 | Field | Value |
 |-------|-------|
-| Rule ID | `script.bundle.for-linux` |
+| Rule ID | `script/bundle/for-linux` |
 | Lint | no |
 | Fix | yes |
 | Files | `script/bundle/for-linux/main.go` |
@@ -27,8 +27,8 @@ Scaffold a linux/amd64 cross-compile helper.
 ## CLI
 
 ```bash
-scaff fix script.bundle.for-linux --dry-run
-scaff fix script.bundle.for-linux
+scaff fix script/bundle/for-linux --dry-run
+scaff fix script/bundle/for-linux
 go run ./script/bundle/for-linux
 go run ./script/bundle/for-linux -o myapp-linux-amd64
 ```

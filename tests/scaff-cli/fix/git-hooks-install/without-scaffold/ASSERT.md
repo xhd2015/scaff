@@ -1,7 +1,7 @@
 ## Expected
 
 - Exit code is `1`.
-- Output includes hint to run `scaff fix git.hooks` (or `fix git.hooks`).
+- Output includes hint to run `scaff fix git/hooks` (or `fix git/hooks`).
 
 ## Errors
 
@@ -25,8 +25,8 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatalf("exit code = %d, want 1\n%s", resp.ExitCode, resp.Combined)
 	}
 	out := strings.ToLower(resp.Combined)
-	if !strings.Contains(out, "git.hooks") {
-		t.Fatalf("expected hint mentioning git.hooks, got:\n%s", resp.Combined)
+	if !strings.Contains(out, "git/hooks") {
+		t.Fatalf("expected hint mentioning git/hooks, got:\n%s", resp.Combined)
 	}
 }
 ```

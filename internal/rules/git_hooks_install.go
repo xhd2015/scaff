@@ -17,7 +17,7 @@ func FixGitHooksInstall(project model.Project, dryRun bool) (model.FixResult, er
 	hooksMain := filepath.Join(project.Root, gitHooksPath)
 	if _, err := os.Stat(hooksMain); err != nil {
 		if os.IsNotExist(err) {
-			return model.FixResult{}, fmt.Errorf("missing %s; run: scaff fix git.hooks", gitHooksPath)
+			return model.FixResult{}, fmt.Errorf("missing %s; run: scaff fix git/hooks", gitHooksPath)
 		}
 		return model.FixResult{}, err
 	}
@@ -25,7 +25,7 @@ func FixGitHooksInstall(project model.Project, dryRun bool) (model.FixResult, er
 	if err != nil {
 		return model.FixResult{}, fmt.Errorf("not a git repository: %w", err)
 	}
-	result := model.FixResult{RuleID: "git.hooks.install"}
+	result := model.FixResult{RuleID: "git/hooks/install"}
 	if dryRun {
 		result.Actions = []string{"dry-run: would patch .git/hooks/pre-commit and pre-push"}
 		return result, nil

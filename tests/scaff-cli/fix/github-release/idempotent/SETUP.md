@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix github.release no-op when scaffold exists
+**Feature**: fix github/release no-op when scaffold exists
 
 ```
 # release main + lib already present -> no overwrite
-github.release fix -> nothing to do
+github/release fix -> nothing to do
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ github.release fix -> nothing to do
 ## Steps
 
 1. Write custom release `main.go` and `build_release.go`.
-2. Run `scaff fix github.release`.
+2. Run `scaff fix github/release`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
@@ -24,7 +24,7 @@ func Setup(t *testing.T, req *Request) error {
 	if err := writeGithubReleaseLib(req.ProjectDir, "package lib\n\n// CUSTOM_RELEASE_LIB\n"); err != nil {
 		return err
 	}
-	req.Args = []string{"fix", "github.release"}
+	req.Args = []string{"fix", "github/release"}
 	return nil
 }
 ```

@@ -1,7 +1,7 @@
 ## Expected
 
 - Exit code is `1`.
-- Output mentions `github.testing.workflow`.
+- Output mentions `github/testing-workflow`.
 - Output references missing `test.yml` (or `.github/workflows/test.yml`).
 
 ## Exit Code
@@ -22,8 +22,8 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatalf("exit code = %d, want 1\n%s", resp.ExitCode, resp.Combined)
 	}
 	out := resp.Combined
-	if !strings.Contains(out, "github.testing.workflow") {
-		t.Fatalf("expected github.testing.workflow in output, got:\n%s", out)
+	if !strings.Contains(out, "github/testing-workflow") {
+		t.Fatalf("expected github/testing-workflow in output, got:\n%s", out)
 	}
 	if !strings.Contains(out, "test.yml") {
 		t.Fatalf("expected test.yml reference in output, got:\n%s", out)

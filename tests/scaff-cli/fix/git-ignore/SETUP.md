@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: scaff fix git.ignore
+**Feature**: scaff fix git/ignore
 
 ```
 # merge missing .gitignore patterns per profile
-fix executor -> git.ignore -> append-only .gitignore update
+fix executor -> git/ignore -> append-only .gitignore update
 ```
 
 ## Preconditions
@@ -14,7 +14,7 @@ fix executor -> git.ignore -> append-only .gitignore update
 ## Steps
 
 1. Materialize `.gitignore` state for the scenario.
-2. Run `scaff fix git.ignore` with optional `--dry-run`.
+2. Run `scaff fix git/ignore` with optional `--dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {

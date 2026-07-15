@@ -23,17 +23,18 @@ This skill documents product model, CLI surfaces, and each scaffolding rule.
 - `overview` — product model: amend-not-create, profiles, dry-run/idempotency
 - `lint` — `scaff lint` audit CLI
 - `fix` — `scaff fix` apply-one-rule CLI
-- `git/ignore` — rule `git.ignore` (.gitignore patterns by profile)
-- `git/hooks` — rule `git.hooks` (script/git-hooks runner)
-  - `install` — rule `git.hooks.install` (patch `.git/hooks/`)
-- `github/testing-workflow` — rule `github.testing.workflow` (CI test workflow)
-- `github/release` — rule `github.release` (GitHub Releases helper scripts)
+- `git/ignore` — rule `git/ignore` (.gitignore patterns by profile)
+- `git/hooks` — rule `git/hooks` (script/git-hooks runner)
+  - `install` — rule `git/hooks/install` (patch `.git/hooks/`)
+- `github/testing-workflow` — rule `github/testing-workflow` (CI test workflow)
+- `github/release` — rule `github/release` (GitHub Releases helper scripts)
 - `github/upload` — credentials / upload ops (docs-only; no fix rule)
-- `script/generate` — rule `script.generate`
-- `script/install` — rule `script.install`
-- `script/build` — rule `script.build`
-- `script/bundle-for-linux` — rule `script.bundle.for-linux`
-- `install-via-curl` — rule `install.via.curl` (root curl installer)
+- `script/generate` — rule `script/generate`
+- `script/install` — rule `script/install`
+- `script/build` — rule `script/build`
+- `script/bundle-for-linux` — rule `script/bundle/for-linux`
+- `script/github/release-assets` — rule `script/github/release-assets` (gh release asset pack/upload)
+- `install-via-curl` — rule `install/via-curl` (root curl installer)
 
 ## Retrieve topics
 
@@ -56,6 +57,7 @@ scaff skill --show git/hooks/install
 scaff skill --show github/release
 scaff skill --show github/upload
 scaff skill --show script/bundle-for-linux
+scaff skill --show script/github/release-assets
 scaff skill --show install-via-curl
 
 # YAML frontmatter only

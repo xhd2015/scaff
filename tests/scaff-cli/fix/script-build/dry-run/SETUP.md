@@ -1,10 +1,10 @@
 # Scenario
 
-**Feature**: fix script.build --dry-run previews create
+**Feature**: fix script/build --dry-run previews create
 
 ```
 # --dry-run shows would-create without writing
-script.build fix --dry-run -> stdout preview, build.go unchanged
+script/build fix --dry-run -> stdout preview, build.go unchanged
 ```
 
 ## Preconditions
@@ -13,11 +13,11 @@ script.build fix --dry-run -> stdout preview, build.go unchanged
 
 ## Steps
 
-1. Run `scaff fix script.build --dry-run`.
+1. Run `scaff fix script/build --dry-run`.
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	req.Args = []string{"fix", "script.build", "--dry-run"}
+	req.Args = []string{"fix", "script/build", "--dry-run"}
 	return nil
 }
 ```

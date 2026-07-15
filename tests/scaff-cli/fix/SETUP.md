@@ -3,7 +3,7 @@
 **Feature**: scaff fix applies one rule
 
 ```
-# fix executor repairs a single dotted rule idempotently
+# fix executor repairs a single slash-form rule idempotently
 scaff fix <rule> [flags] -> filesystem changes + stdout
 ```
 
