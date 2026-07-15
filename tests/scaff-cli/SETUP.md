@@ -1,10 +1,11 @@
 # Scenario
 
-**Feature**: scaff CLI lint and fix commands
+**Feature**: scaff CLI lint, fix, and multi-topic skill commands
 
 ```
 # temp project fixture + built scaff binary
 Test harness -> scaff binary -> stdout/stderr/exit code -> Response
+# skill leaves set Args only; lint/fix leaves also write project fixtures
 ```
 
 ## Preconditions
@@ -16,14 +17,15 @@ Test harness -> scaff binary -> stdout/stderr/exit code -> Response
 
 1. Allocate a temporary project directory for the test case.
 2. Build or reuse the cached `scaff` binary.
-3. Descendant `Setup` functions materialize project fixtures and set CLI arguments.
+3. Descendant `Setup` functions materialize project fixtures (when needed) and set CLI arguments.
 4. `Run` executes `scaff` with `req.Args` from `req.RunDir` (defaults to project root).
 
 ## Context
 
 - `DOCTEST_ROOT` points at `tests/scaff-cli`.
 - `DOCTEST_SESSION_ID` scopes the cached binary build directory.
-- Leaf setups write fixtures under `req.ProjectDir` using shared helpers.
+- Leaf setups write fixtures under `req.ProjectDir` using shared helpers (lint/fix).
+- Skill leaves reuse the same harness; no project fixture is required for skillcmd actions.
 
 ```go
 import (

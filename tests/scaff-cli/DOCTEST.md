@@ -7,8 +7,10 @@ Doc-style tests for the `scaff` project scaffolding auditor and fixer CLI.
 
 # DSN (Domain Specific Notion)
 
-The **scaff CLI** amends scaffolding in existing projects. It exposes two
-subcommands: `lint` (read-only audit) and `fix <rule>` (idempotent repair).
+The **scaff CLI** amends scaffolding in existing projects. It exposes domain
+subcommands `lint` (read-only audit), `fix <rule>` (idempotent repair), and
+`rules` (rule inventory), plus a **multi-topic skill** surface under
+`scaff skill` only (no top-level `install` or `topics` aliases).
 
 **Project detector** inspects a directory tree, auto-detecting profile from
 `go.mod` and `package.json` (`go`, `node`, `polyglot`, or `generic`). The
@@ -33,14 +35,23 @@ Opt-in fix rules `github.release` and `install.via.curl` substitute project
 metadata from `go.mod` (`__NAME__`, `__OWNER__`, `__REPO__`) into scaffolded
 templates; they are not part of default lint.
 
+**Skill host** embeds a Shape 3 multi-topic skill (`docs/SKILL.md` + nested
+`docs/<path>/TOPIC.md` via `docs/embed.go` and `skillcmd.SingleSkill`). Users
+retrieve the root index or a nested topic with `scaff skill --show`, list every
+topic path with `scaff skill --list`, install the skill tree with
+`scaff skill --install`, and discover actions/topics with `scaff skill --help`.
+Both flag orders work for show (`--show path` and `path --show`). `--header`
+prints YAML frontmatter only. Unknown topic paths error. Install supports
+`--dry-run` and a positional target directory.
+
 Tests build the `scaff` binary once per session, materialize temp project
-fixtures, exec the CLI, and assert on exit codes, stdout/stderr, and filesystem
-side effects.
+fixtures (for lint/fix), exec the CLI, and assert on exit codes, stdout/stderr,
+and filesystem side effects.
 
 ## Decision Tree
 
 ```
-tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
+tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixture]
 │
 ├── lint/                                     Command=lint
 │   ├── issues-found/                         exit 1 — scaffold gaps
@@ -57,51 +68,74 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
 │   └── target-dir/                           --dir aims at subdirectory
 │       └── subdirectory/                     audit nested project root
 │
-└── fix/                                      Command=fix <rule>
-    ├── unknown-rule/                         exit 2, lists available rules
-    ├── git-ignore/
-    │   ├── create-missing/                   no .gitignore → full pattern set
-    │   ├── append-partial/                   append only missing lines
-    │   ├── idempotent/                       complete → no-op
-    │   ├── dry-run/                          preview append, no write
-    │   └── no-vendor/                        never adds vendor/
-    ├── github-testing-workflow/
-    │   ├── create-missing/                   creates test.yml with go+doctest steps
-    │   ├── idempotent-existing/              test.yml exists → no-op
-    │   ├── ci-only/                          ci.yml present, creates test.yml
-    │   └── dry-run/                          preview create, no write
-    ├── script-generate/
-    │   ├── create-missing/                   creates stub main.go
-    │   └── idempotent/                       exists → no-op
-    ├── script-install/
-    │   ├── create-missing/                   creates install.go stub
-    │   ├── idempotent/                       exists → no-op
-    │   └── dry-run/                          preview create, no write
-    ├── script-build/
-    │   ├── create-missing/                   creates build.go stub
-    │   ├── idempotent/                       exists → no-op
-    │   └── dry-run/                          preview create, no write
-    ├── script-bundle-for-linux/
-    │   ├── create-missing/                   creates for-linux main.go stub
-    │   ├── idempotent/                       exists → no-op
-    │   └── dry-run/                          preview create, no write
-    ├── git-hooks/
-    │   ├── scaffold-missing/                 creates install + no-op hooks
-    │   └── idempotent/                       exists → no-op
-    ├── git-hooks-install/
-    │   ├── without-scaffold/                 error + hint to fix git.hooks
-    │   ├── patches-hooks/                    git repo → patches pre-commit/pre-push
-    │   └── non-git/                          no .git → error
-    ├── github-release/                       Rule=github.release
-    │   ├── create-missing/                   go.mod → release main + lib
-    │   ├── partial-scaffold/                 main exists → create lib only
-    │   ├── idempotent/                       both exist → no-op
-    │   └── dry-run/                          preview paths, no write
-    └── install-via-curl/                     Rule=install.via.curl
-        ├── create-missing/                   curl installer at repo root
-        ├── idempotent/                       exists → no-op
-        └── dry-run/                          preview only
+├── fix/                                      Command=fix <rule>
+│   ├── unknown-rule/                         exit 2, lists available rules
+│   ├── git-ignore/
+│   │   ├── create-missing/                   no .gitignore → full pattern set
+│   │   ├── append-partial/                   append only missing lines
+│   │   ├── idempotent/                       complete → no-op
+│   │   ├── dry-run/                          preview append, no write
+│   │   └── no-vendor/                        never adds vendor/
+│   ├── github-testing-workflow/
+│   │   ├── create-missing/                   creates test.yml with go+doctest steps
+│   │   ├── idempotent-existing/              test.yml exists → no-op
+│   │   ├── ci-only/                          ci.yml present, creates test.yml
+│   │   └── dry-run/                          preview create, no write
+│   ├── script-generate/
+│   │   ├── create-missing/                   creates stub main.go
+│   │   └── idempotent/                       exists → no-op
+│   ├── script-install/
+│   │   ├── create-missing/                   creates install.go stub
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── script-build/
+│   │   ├── create-missing/                   creates build.go stub
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── script-bundle-for-linux/
+│   │   ├── create-missing/                   creates for-linux main.go stub
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── git-hooks/
+│   │   ├── scaffold-missing/                 creates install + no-op hooks
+│   │   └── idempotent/                       exists → no-op
+│   ├── git-hooks-install/
+│   │   ├── without-scaffold/                 error + hint to fix git.hooks
+│   │   ├── patches-hooks/                    git repo → patches pre-commit/pre-push
+│   │   └── non-git/                          no .git → error
+│   ├── github-release/                       Rule=github.release
+│   │   ├── create-missing/                   go.mod → release main + lib
+│   │   ├── partial-scaffold/                 main exists → create lib only
+│   │   ├── idempotent/                       both exist → no-op
+│   │   └── dry-run/                          preview paths, no write
+│   └── install-via-curl/                     Rule=install.via.curl
+│       ├── create-missing/                   curl installer at repo root
+│       ├── idempotent/                       exists → no-op
+│       └── dry-run/                          preview only
+│
+└── skill/                                    Command=skill (multi-topic skillcmd)
+    ├── list/
+    │   └── full-inventory/                   --list name + all topic paths (sorted)
+    ├── show/
+    │   ├── root/                             --show root SKILL.md index body
+    │   ├── header/                           --show --header YAML delimiters only
+    │   ├── topic/
+    │   │   ├── overview/                     --show overview
+    │   │   ├── git-ignore-flag-before/       --show git/ignore
+    │   │   ├── git-ignore-path-before/       git/ignore --show
+    │   │   ├── github-release/               --show github/release
+    │   │   ├── github-upload/                --show github/upload
+    │   │   └── install-via-curl/             --show install-via-curl
+    │   └── unknown/                          --show missing topic → error
+    ├── help/
+    │   └── with-topics/                      skill --help + Available topics
+    ├── install/
+    │   └── dry-run/                          --install --dry-run <tempDir>
+    └── no-alias/
+        ├── top-level-install/                scaff install → unknown command
+        └── top-level-topics/                 scaff topics → unknown command
 ```
+
 
 ## Test Index
 
@@ -148,6 +182,20 @@ tests/scaff-cli/                              [Command, Rule, Flags, Fixture]
 | `fix/install-via-curl/create-missing` | Creates `install-via-curl.sh` with GitHub URL patterns |
 | `fix/install-via-curl/idempotent` | Existing installer script is no-op |
 | `fix/install-via-curl/dry-run` | `--dry-run` previews without writing installer |
+| `skill/list/full-inventory` | `skill --list` prints `scaff` then full sorted topic inventory |
+| `skill/show/root` | `skill --show` root body: `name: scaff`, retrieve examples, no install flags |
+| `skill/show/header` | `skill --show --header` prints YAML delimiters only |
+| `skill/show/topic/overview` | `skill --show overview` → `name: scaff/overview` |
+| `skill/show/topic/git-ignore-flag-before` | `skill --show git/ignore` path resolution |
+| `skill/show/topic/git-ignore-path-before` | `skill git/ignore --show` alternate flag order |
+| `skill/show/topic/github-release` | `skill --show github/release` topic markers |
+| `skill/show/topic/github-upload` | `skill --show github/upload` docs-only topic |
+| `skill/show/topic/install-via-curl` | `skill --show install-via-curl` topic markers |
+| `skill/show/unknown` | Unknown topic path exits non-zero with error signal |
+| `skill/help/with-topics` | `skill --help` mentions actions and available topics |
+| `skill/install/dry-run` | `skill --install --dry-run <dir>` plans SKILL.md + TOPIC.md, no write |
+| `skill/no-alias/top-level-install` | Top-level `install` is unknown (not skill install) |
+| `skill/no-alias/top-level-topics` | Top-level `topics` is unknown (not skill list) |
 
 ## How to Run
 

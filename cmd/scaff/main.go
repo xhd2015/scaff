@@ -7,10 +7,12 @@ import (
 	"strings"
 
 	lessflags "github.com/xhd2015/less-flags"
+	"github.com/xhd2015/scaff/docs"
 	"github.com/xhd2015/scaff/internal/audit"
-	"github.com/xhd2015/scaff/internal/model"
 	"github.com/xhd2015/scaff/internal/fix"
+	"github.com/xhd2015/scaff/internal/model"
 	"github.com/xhd2015/scaff/internal/output"
+	"github.com/xhd2015/skills/skillcmd"
 )
 
 func main() {
@@ -29,11 +31,31 @@ func main() {
 		os.Exit(runFix(os.Args[2:]))
 	case "rules":
 		os.Exit(runRules(os.Args[2:]))
+	case "skill":
+		os.Exit(runSkill(os.Args[2:]))
 	default:
 		fmt.Fprintf(os.Stderr, "scaff: unknown command %q\n", os.Args[1])
 		printUsage(os.Stderr)
 		os.Exit(2)
 	}
+}
+
+func singleSkill() *skillcmd.SingleSkill {
+	return &skillcmd.SingleSkill{
+		Name:        docs.Name,
+		RootContent: docs.SkillMD,
+		TreeFS:      docs.TreeFS,
+		Usage:       "scaff skill --install",
+		Help:        skillHelp,
+	}
+}
+
+func runSkill(args []string) int {
+	if err := singleSkill().Handle(args); err != nil {
+		fmt.Fprintf(os.Stderr, "scaff skill: %v\n", err)
+		return 1
+	}
+	return 0
 }
 
 func isHelpArg(arg string) bool {
@@ -165,13 +187,42 @@ Usage:
   scaff lint [options]
   scaff fix <rule> [options]
   scaff rules [options]
+  scaff skill --show|--install|--list [options]
 
 Commands:
   lint    audit default rules (git.ignore, github.testing.workflow)
   fix     apply one scaffolding rule
   rules   list lint and fix rules
+  skill   show, install, or list embedded multi-topic skill docs
 
 Run scaff <command> --help for command-specific options.
+Run scaff skill --help for skill surface.
+Run scaff skill --install --help for install flags.
+`
+
+const skillHelp = `Usage: scaff skill --show [--header] [<topic-path>]
+       scaff skill <topic-path> --show [--header]
+       scaff skill --install [OPTIONS] [<dir>]
+       scaff skill --list
+
+Show the root SKILL.md index or a nested topic (path/TOPIC.md).
+Install copies SKILL.md and nested TOPIC.md topics into agent skill directories.
+List prints the skill name and every available topic path.
+--help also lists available topics (see below).
+
+Examples:
+  scaff skill --show
+  scaff skill --show git/ignore
+  scaff skill git/ignore --show
+  scaff skill --list
+  scaff skill --install --dry-run
+  scaff skill --install --help
+
+Options:
+  --show [--header] [path]   Print skill or topic content (header-only with --header)
+  --install [OPTIONS] [dir]  Install skill files (see --install --help)
+  --list                     Print skill name and all topic paths
+  -h, --help                 Show this help and available topics
 `
 
 const rulesHelp = `scaff rules — list lint and fix rules
