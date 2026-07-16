@@ -29,9 +29,15 @@ This skill documents product model, CLI surfaces, and each scaffolding rule.
 - `github/testing-workflow` — rule `github/testing-workflow` (CI test workflow)
 - `github/release` — rule `github/release` (GitHub Releases helper scripts)
 - `github/upload` — credentials / upload ops (docs-only; no fix rule)
+- `project/readme` — rule `project/readme` (root README.md)
+- `project/license` — rule `project/license` (root MIT LICENSE)
+- `project/agents` — rule `project/agents` (root AGENTS.md)
+- `project/layout/cmd` — rule `project/layout/cmd` (cmd/<name>/main.go)
+- `tests/doctest` — rule `tests/doctest` (tests/<name>-cli doctest harness)
 - `script/generate` — rule `script/generate`
 - `script/install` — rule `script/install`
 - `script/build` — rule `script/build`
+- `script/dev` — rule `script/dev` (go run . --dev wrapper)
 - `script/bundle-for-linux` — rule `script/bundle/for-linux`
 - `script/github/release-assets` — rule `script/github/release-assets` (gh release asset pack/upload)
 - `install-via-curl` — rule `install/via-curl` (root curl installer)
@@ -56,6 +62,10 @@ scaff skill git/ignore --show
 scaff skill --show git/hooks/install
 scaff skill --show github/release
 scaff skill --show github/upload
+scaff skill --show project/readme
+scaff skill --show project/layout/cmd
+scaff skill --show tests/doctest
+scaff skill --show script/dev
 scaff skill --show script/bundle-for-linux
 scaff skill --show script/github/release-assets
 scaff skill --show install-via-curl

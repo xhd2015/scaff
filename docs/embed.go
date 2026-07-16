@@ -28,4 +28,6 @@ var SkillMD string
 //go:embed github
 //go:embed script
 //go:embed install-via-curl
+//go:embed project
+//go:embed tests
 var TreeFS embed.FS

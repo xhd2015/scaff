@@ -39,6 +39,9 @@ Default lint rules:
 
 - `git/ignore`
 - `github/testing-workflow`
+- `project/readme`
+- `project/license`
+- `tests/doctest` (Go profile)
 
 All other catalog rules are fix-only (or docs-only for `github/upload`).
 

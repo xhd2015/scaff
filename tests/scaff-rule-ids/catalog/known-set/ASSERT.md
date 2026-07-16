@@ -1,12 +1,18 @@
 ## Expected
 
-- Catalog lists **exactly** these eleven slash IDs (set equality; order does not matter).
-  Updated from the original P1 ten-ID set to include P5 rule `script/github/release-assets`:
+- Catalog lists **exactly** these seventeen slash IDs (set equality; order does not matter).
+  Includes prior rules plus project scaffold + doctest + script/dev:
   - `git/ignore`
   - `github/testing-workflow`
+  - `project/readme`
+  - `project/license`
+  - `tests/doctest`
+  - `project/agents`
+  - `project/layout/cmd`
   - `script/generate`
   - `script/install`
   - `script/build`
+  - `script/dev`
   - `script/bundle/for-linux`
   - `git/hooks`
   - `git/hooks/install`
@@ -15,7 +21,6 @@
   - `script/github/release-assets`
 - No dotted legacy IDs, no aliases, no missing rules, no extra rules.
 - No duplicate IDs.
-- Catalog entry for `script/github/release-assets` is Fix-capable (covered by catalog inventory inclusion; lint optional).
 
 ## Errors
 
@@ -36,13 +41,19 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatal("nil response")
 	}
 
-	// Phase expansion (P5): known-set grows from 10 → 11 with script/github/release-assets.
+	// Project-scaffold expansion: known-set grows to 17 with readme/license/doctest/agents/layout/dev.
 	want := []string{
 		"git/ignore",
 		"github/testing-workflow",
+		"project/readme",
+		"project/license",
+		"tests/doctest",
+		"project/agents",
+		"project/layout/cmd",
 		"script/generate",
 		"script/install",
 		"script/build",
+		"script/dev",
 		"script/bundle/for-linux",
 		"git/hooks",
 		"git/hooks/install",

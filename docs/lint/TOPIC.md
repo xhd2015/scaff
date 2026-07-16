@@ -13,7 +13,9 @@ scaff lint [--dir DIR] [--json] [--profile PROFILE]
 
 ## Behavior
 
-- Runs **lint-enabled** rules only (today: `git/ignore`, `github/testing-workflow`).
+- Runs **lint-enabled** rules only:
+  `git/ignore`, `github/testing-workflow`, `project/readme`, `project/license`,
+  `tests/doctest` (Go profile; n/a for node/generic).
 - Exit code non-zero when any rule reports issues (missing/partial).
 - `--json` emits a machine-readable report.
 - `--profile` overrides auto-detect (`go`, `node`, `polyglot`, `generic`).
@@ -41,10 +43,14 @@ scaff lint --profile go
 - `fix` — apply a single rule
 - `git/ignore` — lint rule details
 - `github/testing-workflow` — lint rule details
+- `project/readme` — root README
+- `project/license` — root LICENSE
+- `tests/doctest` — doctest harness
 
 ## Related CLI
 
 ```bash
 scaff rules
 scaff fix git/ignore --dry-run
+scaff fix project/readme --dry-run
 ```

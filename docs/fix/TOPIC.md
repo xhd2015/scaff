@@ -24,7 +24,11 @@ scaff fix <rule> [--dir DIR] [--dry-run]
 scaff fix git/ignore --dry-run
 scaff fix git/ignore
 scaff fix github/testing-workflow --dir ./svc
+scaff fix project/readme
+scaff fix project/license
+scaff fix tests/doctest
 scaff fix script/build
+scaff fix script/dev
 scaff fix script/github/release-assets
 scaff fix install/via-curl
 ```
@@ -38,9 +42,15 @@ scaff fix install/via-curl
 | `git/hooks/install` | `git/hooks/install` |
 | `github/testing-workflow` | `github/testing-workflow` |
 | `github/release` | `github/release` |
+| `project/readme` | `project/readme` |
+| `project/license` | `project/license` |
+| `project/agents` | `project/agents` |
+| `project/layout/cmd` | `project/layout/cmd` |
+| `tests/doctest` | `tests/doctest` |
 | `script/generate` | `script/generate` |
 | `script/install` | `script/install` |
 | `script/build` | `script/build` |
+| `script/dev` | `script/dev` |
 | `script/bundle/for-linux` | `script/bundle-for-linux` |
 | `script/github/release-assets` | `script/github/release-assets` |
 | `install/via-curl` | `install-via-curl` |
@@ -51,4 +61,4 @@ There is **no** fix rule for GitHub upload credentials (`github/upload` is docs-
 
 - `overview` — product model and idempotency
 - `lint` — audit before fix
-- individual rule topics under `git/`, `github/`, `script/`, `install-via-curl`
+- individual rule topics under `git/`, `github/`, `project/`, `tests/`, `script/`, `install-via-curl`

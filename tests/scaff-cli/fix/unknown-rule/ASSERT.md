@@ -2,7 +2,7 @@
 
 - Exit code is `2`.
 - Output mentions unknown rule `unknown.rule`.
-- Output lists available rules: `git/ignore`, `github/testing-workflow`, `script/generate`, `script/install`, `script/build`, `script/bundle/for-linux`, `git/hooks`, `git/hooks/install`, `github/release`, `install/via-curl`, `script/github/release-assets`.
+- Output lists available rules including the full fix catalog (17 slash IDs), among them the new project/tests/script rules.
 
 ## Exit Code
 
@@ -28,9 +28,15 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 	for _, rule := range []string{
 		"git/ignore",
 		"github/testing-workflow",
+		"project/readme",
+		"project/license",
+		"tests/doctest",
+		"project/agents",
+		"project/layout/cmd",
 		"script/generate",
 		"script/install",
 		"script/build",
+		"script/dev",
 		"script/bundle/for-linux",
 		"git/hooks",
 		"git/hooks/install",

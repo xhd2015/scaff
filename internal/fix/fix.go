@@ -13,12 +13,24 @@ func Apply(project model.Project, ruleID string, dryRun bool) (model.FixResult, 
 		return rules.FixGitIgnore(project, dryRun)
 	case "github/testing-workflow":
 		return rules.FixGitHubTestingWorkflow(project, dryRun)
+	case "project/readme":
+		return rules.FixProjectReadme(project, dryRun)
+	case "project/license":
+		return rules.FixProjectLicense(project, dryRun)
+	case "tests/doctest":
+		return rules.FixTestsDoctest(project, dryRun)
+	case "project/agents":
+		return rules.FixProjectAgents(project, dryRun)
+	case "project/layout/cmd":
+		return rules.FixProjectLayoutCmd(project, dryRun)
 	case "script/generate":
 		return rules.FixScriptGenerate(project, dryRun)
 	case "script/install":
 		return rules.FixScriptInstall(project, dryRun)
 	case "script/build":
 		return rules.FixScriptBuild(project, dryRun)
+	case "script/dev":
+		return rules.FixScriptDev(project, dryRun)
 	case "script/bundle/for-linux":
 		return rules.FixScriptBundleForLinux(project, dryRun)
 	case "git/hooks":

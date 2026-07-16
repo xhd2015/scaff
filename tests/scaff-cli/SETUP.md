@@ -98,6 +98,36 @@ func writeCompleteGoGitignore(dir string) error {
 	return writeFile(dir, ".gitignore", content)
 }
 
+func writeREADME(dir, content string) error {
+	return writeFile(dir, "README.md", content)
+}
+
+func writeLICENSE(dir, content string) error {
+	return writeFile(dir, "LICENSE", content)
+}
+
+func writeAGENTS(dir, content string) error {
+	return writeFile(dir, "AGENTS.md", content)
+}
+
+func writeDoctestTree(dir, name string) error {
+	cliDir := filepath.Join("tests", name+"-cli")
+	doctestTpl, err := readFixture("doctest-cli-DOCTEST.md.tpl")
+	if err != nil {
+		return err
+	}
+	setupTpl, err := readFixture("doctest-cli-SETUP.md.tpl")
+	if err != nil {
+		return err
+	}
+	doctest := strings.ReplaceAll(doctestTpl, "__NAME__", name)
+	setup := strings.ReplaceAll(setupTpl, "__NAME__", name)
+	if err := writeFile(dir, filepath.Join(cliDir, "DOCTEST.md"), doctest); err != nil {
+		return err
+	}
+	return writeFile(dir, filepath.Join(cliDir, "SETUP.md"), setup)
+}
+
 func writeTestWorkflow(dir string) error {
 	content := `name: Test
 on:
@@ -155,6 +185,26 @@ func writeScriptBuild(dir string) error {
 		return err
 	}
 	return writeFile(dir, "script/build/build.go", content)
+}
+
+func writeScriptDev(dir string) error {
+	content, err := readFixture("script-dev-main.go")
+	if err != nil {
+		return err
+	}
+	return writeFile(dir, "script/dev/main.go", content)
+}
+
+func writeCmdMain(dir, name, content string) error {
+	return writeFile(dir, filepath.Join("cmd", name, "main.go"), content)
+}
+
+func writeCmdMyappCustom(dir string) error {
+	content, err := readFixture("cmd-myapp-main-custom.go")
+	if err != nil {
+		return err
+	}
+	return writeCmdMain(dir, "myapp", content)
 }
 
 func writeScriptBundleForLinux(dir string) error {

@@ -13,6 +13,12 @@ func Lint(project model.Project) model.LintReport {
 			report.Results = append(report.Results, rules.LintGitIgnore(project))
 		case "github/testing-workflow":
 			report.Results = append(report.Results, rules.LintGitHubTestingWorkflow(project))
+		case "project/readme":
+			report.Results = append(report.Results, rules.LintProjectReadme(project))
+		case "project/license":
+			report.Results = append(report.Results, rules.LintProjectLicense(project))
+		case "tests/doctest":
+			report.Results = append(report.Results, rules.LintTestsDoctest(project))
 		}
 	}
 	return report

@@ -15,22 +15,25 @@ github/upload
 install-via-curl
 lint
 overview
+project/agents
+project/layout/cmd
+project/license
+project/readme
 script/build
 script/bundle-for-linux
+script/dev
 script/generate
 script/github/release-assets
 script/install
+tests/doctest
 ```
 
 ## Expected
 
 - Exit code is `0`.
 - First line is exactly `scaff` (skill name).
-- Stdout lists every nested topic path from the inventory, sorted, one per line:
-  `fix`, `git/hooks`, `git/hooks/install`, `git/ignore`, `github/release`,
-  `github/testing-workflow`, `github/upload`, `install-via-curl`, `lint`,
-  `overview`, `script/build`, `script/bundle-for-linux`, `script/generate`,
-  `script/github/release-assets`, `script/install`.
+- Stdout lists every nested topic path from the inventory, sorted, one per line
+  (includes project/*, tests/doctest, script/dev).
 - Trailing newline after the last topic line (CLI convention).
 
 ## Side Effects
@@ -56,7 +59,6 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatalf("exit code = %d, want 0\n%s", resp.ExitCode, resp.Combined)
 	}
 	// Full inventory, skillcmd ListTreeTopics order (sort.Strings).
-	// P5: includes script/github/release-assets topic.
 	assert.Output(t, resp.Stdout, `---
 version: 2
 ---
@@ -71,11 +73,17 @@ github/upload
 install-via-curl
 lint
 overview
+project/agents
+project/layout/cmd
+project/license
+project/readme
 script/build
 script/bundle-for-linux
+script/dev
 script/generate
 script/github/release-assets
 script/install
+tests/doctest
 `)
 }
 ```

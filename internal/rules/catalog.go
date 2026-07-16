@@ -21,6 +21,36 @@ var Catalog = []RuleInfo{
 		Fix:         true,
 	},
 	{
+		ID:          "project/readme",
+		Description: "root README.md with install instructions for project profile",
+		Lint:        true,
+		Fix:         true,
+	},
+	{
+		ID:          "project/license",
+		Description: "root MIT LICENSE with year and owner metadata",
+		Lint:        true,
+		Fix:         true,
+	},
+	{
+		ID:          "tests/doctest",
+		Description: "tests/<name>-cli/DOCTEST.md and SETUP.md doctest harness",
+		Lint:        true,
+		Fix:         true,
+	},
+	{
+		ID:          "project/agents",
+		Description: "root AGENTS.md with build and test instructions",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
+		ID:          "project/layout/cmd",
+		Description: "cmd/<name>/main.go CLI entry from module name",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
 		ID:          "script/generate",
 		Description: "script/generate/main.go no-op stub",
 		Lint:        false,
@@ -35,6 +65,12 @@ var Catalog = []RuleInfo{
 	{
 		ID:          "script/build",
 		Description: "script/build/build.go native go build helper",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
+		ID:          "script/dev",
+		Description: "script/dev/main.go go run . --dev wrapper",
 		Lint:        false,
 		Fix:         true,
 	},

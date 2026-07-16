@@ -17,25 +17,29 @@ subcommands `lint` (read-only audit), `fix <rule>` (idempotent repair), and
 `--profile` flag overrides detection.
 
 **Lint orchestrator** runs default rules only: `git/ignore` (expected patterns
-per profile) and `github/testing-workflow` (requires `.github/workflows/test.yml`
-specifically). Opt-in rules (`script/generate`, `git/hooks`, `git/hooks/install`)
-are never reported by lint.
+per profile), `github/testing-workflow` (requires `.github/workflows/test.yml`
+specifically), `project/readme` (root `README.md`), `project/license` (root
+`LICENSE`), and `tests/doctest` (Go profile: `tests/<name>-cli/DOCTEST.md`).
+Opt-in rules (`script/generate`, `project/agents`, `script/dev`, …) are never
+reported by lint.
 
 **Fix executor** applies one slash-form rule at a time, merging non-destructively
 (append missing `.gitignore` lines, create missing files, scaffold hooks).
 `--dry-run` previews changes without writing.
 
 **Rule implementations** each own detection and repair for their artifact:
-`.gitignore`, GitHub workflow YAML, `script/generate`, `script/install`,
-`script/build`, `script/bundle/for-linux`, `script/git-hooks`, hook
-installation into `.git/hooks/`, GitHub release scripts under
-`script/github/`, release-assets helper under `script/github/release-assets/`,
-and the root `install-via-curl.sh` curl installer.
+`.gitignore`, GitHub workflow YAML, root `README.md` / `LICENSE` / `AGENTS.md`,
+`cmd/<name>/main.go`, doctest harness under `tests/<name>-cli/`,
+`script/generate`, `script/install`, `script/build`, `script/dev`,
+`script/bundle/for-linux`, `script/git-hooks`, hook installation into
+`.git/hooks/`, GitHub release scripts under `script/github/`, release-assets
+helper under `script/github/release-assets/`, and the root `install-via-curl.sh`
+curl installer.
 
-Opt-in fix rules `github/release`, `install/via-curl`, and
-`script/github/release-assets` are not part of default lint. Release and curl
-rules may substitute project metadata from `go.mod` (`__NAME__`, `__OWNER__`,
-`__REPO__`) into scaffolded templates.
+Opt-in fix rules (`project/agents`, `project/layout/cmd`, `script/dev`,
+`github/release`, `install/via-curl`, `script/github/release-assets`, …) are
+not part of default lint. Scaffold templates may substitute project metadata
+from `go.mod` (`__NAME__`, `__OWNER__`, `__REPO__`, `__YEAR__`).
 
 **Skill host** embeds a Shape 3 multi-topic skill (`docs/SKILL.md` + nested
 `docs/<path>/TOPIC.md` via `docs/embed.go` and `skillcmd.SingleSkill`). Users
@@ -57,11 +61,14 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 │
 ├── lint/                                     Command=lint
 │   ├── issues-found/                         exit 1 — scaffold gaps
-│   │   ├── empty-go-project/                 go.mod only; 2 rules; no opt-in rules
+│   │   ├── empty-go-project/                 go.mod only; 5 default rules; no opt-in
 │   │   ├── partial-gitignore/                missing .vscode/ → partial git/ignore
-│   │   └── ci-without-test-yml/              ci.yml present, test.yml missing
+│   │   ├── ci-without-test-yml/              ci.yml present, test.yml missing
+│   │   ├── missing-readme/                   go.mod only; lint mentions project/readme
+│   │   ├── missing-license/                  go.mod only; lint mentions project/license
+│   │   └── missing-doctest/                  go.mod only; lint mentions tests/doctest
 │   ├── all-pass/                             exit 0
-│   │   └── complete-project/                 full gitignore + test.yml
+│   │   └── complete-project/                 full default-lint scaffold
 │   ├── json-output/                          --json structured report
 │   │   └── issues-report/                    valid JSON on issues
 │   ├── profile-override/                     --profile overrides auto-detect
@@ -92,6 +99,30 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 │   │   └── dry-run/                          preview create, no write
 │   ├── script-build/
 │   │   ├── create-missing/                   creates build.go stub
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── script-dev/                           Rule=script/dev
+│   │   ├── create-missing/                   creates script/dev/main.go wrapper
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── project-readme/                       Rule=project/readme
+│   │   ├── create-missing/                   creates README.md with install line
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── project-license/                      Rule=project/license
+│   │   ├── create-missing/                   creates MIT LICENSE with year/owner
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── tests-doctest/                        Rule=tests/doctest
+│   │   ├── create-missing/                   creates tests/<name>-cli doctest tree
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── project-agents/                       Rule=project/agents
+│   │   ├── create-missing/                   creates AGENTS.md
+│   │   ├── idempotent/                       exists → no-op
+│   │   └── dry-run/                          preview create, no write
+│   ├── project-layout-cmd/                   Rule=project/layout/cmd
+│   │   ├── create-missing/                   creates cmd/<name>/main.go
 │   │   ├── idempotent/                       exists → no-op
 │   │   └── dry-run/                          preview create, no write
 │   ├── script-bundle-for-linux/
@@ -150,6 +181,9 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 | `lint/issues-found/empty-go-project` | Empty Go project reports only default lint rules |
 | `lint/issues-found/partial-gitignore` | Partial `.gitignore` yields partial/missing git/ignore |
 | `lint/issues-found/ci-without-test-yml` | `ci.yml` does not satisfy github/testing-workflow |
+| `lint/issues-found/missing-readme` | Missing `README.md` yields project/readme finding |
+| `lint/issues-found/missing-license` | Missing `LICENSE` yields project/license finding |
+| `lint/issues-found/missing-doctest` | Missing doctest tree yields tests/doctest finding |
 | `lint/all-pass/complete-project` | Complete scaffold exits 0 |
 | `lint/json-output/issues-report` | `--json` emits valid structured lint report |
 | `lint/profile-override/node` | `--profile node` checks node_modules pattern |
@@ -173,6 +207,24 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 | `fix/script-build/create-missing` | Creates `script/build/build.go` stub |
 | `fix/script-build/idempotent` | Existing build stub is no-op |
 | `fix/script-build/dry-run` | `--dry-run` previews build stub without write |
+| `fix/script-dev/create-missing` | Creates `script/dev/main.go` go run . --dev wrapper |
+| `fix/script-dev/idempotent` | Existing dev stub is no-op |
+| `fix/script-dev/dry-run` | `--dry-run` previews dev stub without write |
+| `fix/project-readme/create-missing` | Creates `README.md` with go install line and module substitutions |
+| `fix/project-readme/idempotent` | Existing README is no-op |
+| `fix/project-readme/dry-run` | `--dry-run` previews without writing README |
+| `fix/project-license/create-missing` | Creates MIT `LICENSE` with year and owner substitutions |
+| `fix/project-license/idempotent` | Existing LICENSE is no-op |
+| `fix/project-license/dry-run` | `--dry-run` previews without writing LICENSE |
+| `fix/tests-doctest/create-missing` | Creates `tests/<name>-cli/` doctest tree from go.mod |
+| `fix/tests-doctest/idempotent` | Existing DOCTEST.md is no-op |
+| `fix/tests-doctest/dry-run` | `--dry-run` previews without writing doctest tree |
+| `fix/project-agents/create-missing` | Creates `AGENTS.md` with build and doctest test sections |
+| `fix/project-agents/idempotent` | Existing AGENTS.md is no-op |
+| `fix/project-agents/dry-run` | `--dry-run` previews without writing AGENTS.md |
+| `fix/project-layout-cmd/create-missing` | Creates `cmd/myapp/main.go` from go.mod name |
+| `fix/project-layout-cmd/idempotent` | Existing `cmd/` layout is no-op |
+| `fix/project-layout-cmd/dry-run` | `--dry-run` previews without writing cmd main |
 | `fix/script-bundle-for-linux/create-missing` | Creates `script/bundle/for-linux/main.go` stub |
 | `fix/script-bundle-for-linux/idempotent` | Existing bundle stub is no-op |
 | `fix/script-bundle-for-linux/dry-run` | `--dry-run` previews bundle stub without write |

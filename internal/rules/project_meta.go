@@ -3,7 +3,9 @@ package rules
 import (
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 )
 
 type ProjectMeta struct {
@@ -11,10 +13,11 @@ type ProjectMeta struct {
 	Name   string
 	Owner  string
 	Repo   string
+	Year   string
 }
 
 func DetectProjectMeta(root string) (ProjectMeta, error) {
-	meta := ProjectMeta{}
+	meta := ProjectMeta{Year: strconv.Itoa(time.Now().Year())}
 	base := filepath.Base(root)
 	meta.Name = base
 	meta.Repo = base
@@ -54,6 +57,7 @@ func substituteMeta(s string, meta ProjectMeta) string {
 		"__NAME__", meta.Name,
 		"__OWNER__", meta.Owner,
 		"__REPO__", meta.Repo,
+		"__YEAR__", meta.Year,
 	)
 	return r.Replace(s)
 }
