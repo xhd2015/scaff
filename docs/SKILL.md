@@ -26,6 +26,7 @@ This skill documents product model, CLI surfaces, and each scaffolding rule.
 - `git/ignore` — rule `git/ignore` (.gitignore patterns by profile)
 - `git/hooks` — rule `git/hooks` (script/git-hooks runner)
   - `install` — rule `git/hooks/install` (patch `.git/hooks/`)
+- `git/pre-commit` — rule `git/pre-commit` (script/git/pre-commit ensure + git add)
 - `github/testing-workflow` — rule `github/testing-workflow` (CI test workflow)
 - `github/release` — rule `github/release` (GitHub Releases helper scripts)
 - `github/upload` — credentials / upload ops (docs-only; no fix rule)
@@ -60,6 +61,7 @@ scaff skill --show fix
 scaff skill --show git/ignore
 scaff skill git/ignore --show
 scaff skill --show git/hooks/install
+scaff skill --show git/pre-commit
 scaff skill --show github/release
 scaff skill --show github/upload
 scaff skill --show project/readme

@@ -223,6 +223,14 @@ func writeGitHooksMain(dir string) error {
 	return writeFile(dir, "script/git-hooks/main.go", content)
 }
 
+func writeGitPreCommitMain(dir string) error {
+	content, err := readFixture("git-pre-commit-main.go")
+	if err != nil {
+		return err
+	}
+	return writeFile(dir, "script/git/pre-commit/main.go", content)
+}
+
 func writeScriptGithubReleaseAssets(dir string) error {
 	// Pre-existing stub for idempotent leaves; marker must survive fix no-op.
 	content := `// existing-release-assets-stub-marker

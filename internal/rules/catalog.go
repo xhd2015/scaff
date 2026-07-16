@@ -93,6 +93,12 @@ var Catalog = []RuleInfo{
 		Fix:         true,
 	},
 	{
+		ID:          "git/pre-commit",
+		Description: "script/git/pre-commit ensure paths + git add (git-hooks install comment)",
+		Lint:        false,
+		Fix:         true,
+	},
+	{
 		ID:          "github/release",
 		Description: "script/github/release and lib helper for GitHub releases",
 		Lint:        false,

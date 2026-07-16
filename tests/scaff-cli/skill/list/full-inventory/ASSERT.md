@@ -9,6 +9,7 @@ fix
 git/hooks
 git/hooks/install
 git/ignore
+git/pre-commit
 github/release
 github/testing-workflow
 github/upload
@@ -33,7 +34,7 @@ tests/doctest
 - Exit code is `0`.
 - First line is exactly `scaff` (skill name).
 - Stdout lists every nested topic path from the inventory, sorted, one per line
-  (includes project/*, tests/doctest, script/dev).
+  (includes project/*, tests/doctest, script/dev, git/pre-commit).
 - Trailing newline after the last topic line (CLI convention).
 
 ## Side Effects
@@ -67,6 +68,7 @@ fix
 git/hooks
 git/hooks/install
 git/ignore
+git/pre-commit
 github/release
 github/testing-workflow
 github/upload
@@ -87,3 +89,4 @@ tests/doctest
 `)
 }
 ```
+

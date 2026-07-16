@@ -15,6 +15,7 @@ var AllFixRules = []string{
 	"script/bundle/for-linux",
 	"git/hooks",
 	"git/hooks/install",
+	"git/pre-commit",
 	"github/release",
 	"install/via-curl",
 	"script/github/release-assets",

@@ -37,6 +37,8 @@ func Apply(project model.Project, ruleID string, dryRun bool) (model.FixResult, 
 		return rules.FixGitHooks(project, dryRun)
 	case "git/hooks/install":
 		return rules.FixGitHooksInstall(project, dryRun)
+	case "git/pre-commit":
+		return rules.FixGitPreCommit(project, dryRun)
 	case "github/release":
 		return rules.FixGithubRelease(project, dryRun)
 	case "install/via-curl":

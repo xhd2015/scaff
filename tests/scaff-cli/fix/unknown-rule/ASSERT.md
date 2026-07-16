@@ -2,7 +2,7 @@
 
 - Exit code is `2`.
 - Output mentions unknown rule `unknown.rule`.
-- Output lists available rules including the full fix catalog (17 slash IDs), among them the new project/tests/script rules.
+- Output lists available rules including the full fix catalog (18 slash IDs), among them the new project/tests/script rules.
 
 ## Exit Code
 
@@ -40,6 +40,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		"script/bundle/for-linux",
 		"git/hooks",
 		"git/hooks/install",
+		"git/pre-commit",
 		"github/release",
 		"install/via-curl",
 		"script/github/release-assets",

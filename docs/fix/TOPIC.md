@@ -40,6 +40,7 @@ scaff fix install/via-curl
 | `git/ignore` | `git/ignore` |
 | `git/hooks` | `git/hooks` |
 | `git/hooks/install` | `git/hooks/install` |
+| `git/pre-commit` | `git/pre-commit` |
 | `github/testing-workflow` | `github/testing-workflow` |
 | `github/release` | `github/release` |
 | `project/readme` | `project/readme` |

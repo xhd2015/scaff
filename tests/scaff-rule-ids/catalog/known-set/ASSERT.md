@@ -1,7 +1,7 @@
 ## Expected
 
-- Catalog lists **exactly** these seventeen slash IDs (set equality; order does not matter).
-  Includes prior rules plus project scaffold + doctest + script/dev:
+- Catalog lists **exactly** these eighteen slash IDs (set equality; order does not matter).
+  Includes prior rules plus project scaffold + doctest + script/dev + git/pre-commit:
   - `git/ignore`
   - `github/testing-workflow`
   - `project/readme`
@@ -16,6 +16,7 @@
   - `script/bundle/for-linux`
   - `git/hooks`
   - `git/hooks/install`
+  - `git/pre-commit`
   - `github/release`
   - `install/via-curl`
   - `script/github/release-assets`
@@ -41,7 +42,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatal("nil response")
 	}
 
-	// Project-scaffold expansion: known-set grows to 17 with readme/license/doctest/agents/layout/dev.
+	// Project-scaffold expansion: known-set grows to 18 with git/pre-commit.
 	want := []string{
 		"git/ignore",
 		"github/testing-workflow",
@@ -57,6 +58,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		"script/bundle/for-linux",
 		"git/hooks",
 		"git/hooks/install",
+		"git/pre-commit",
 		"github/release",
 		"install/via-curl",
 		"script/github/release-assets",

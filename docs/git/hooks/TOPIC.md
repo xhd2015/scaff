@@ -42,4 +42,5 @@ go run ./script/git-hooks pre-push
 ## Related topics
 
 - `git/hooks/install`
+- `git/pre-commit` — brief `script/git/pre-commit` ensure + git add helper
 - `fix`
