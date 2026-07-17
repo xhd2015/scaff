@@ -2,7 +2,7 @@
 
 - Exit code is `0`.
 - `.github/workflows/test.yml` is created.
-- Workflow runs `go test -v ./...` before `doctest test -v ./...`.
+- Workflow runs `go test -v ./...` before `doctest test -v --label-all ./...`.
 - Workflow uses a `golang:` container image derived from `go.mod`.
 
 ## Side Effects
@@ -30,13 +30,13 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 		t.Fatal("test.yml was not created")
 	}
 	content := readProjectFile(t, req, ".github/workflows/test.yml")
-	for _, want := range []string{"go test -v ./...", "doctest test -v ./...", "golang:"} {
+	for _, want := range []string{"go test -v ./...", "doctest test -v --label-all ./...", "golang:"} {
 		if !strings.Contains(content, want) {
 			t.Fatalf("expected workflow to contain %q, got:\n%s", want, content)
 		}
 	}
 	goTest := strings.Index(content, "go test -v ./...")
-	doctest := strings.Index(content, "doctest test -v ./...")
+	doctest := strings.Index(content, "doctest test -v --label-all ./...")
 	if goTest < 0 || doctest < 0 || goTest > doctest {
 		t.Fatalf("expected go test before doctest, got:\n%s", content)
 	}
