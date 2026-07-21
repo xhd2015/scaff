@@ -17,6 +17,8 @@ tests/doctest fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markTestsDoctestTree()
+	markFixTree()
 	req.Args = []string{"fix", "tests/doctest", "--dry-run"}
 	return nil
 }

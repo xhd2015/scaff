@@ -17,6 +17,8 @@ script/dev fix --dry-run -> stdout preview, dev main unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptDevTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/dev", "--dry-run"}
 	return nil
 }

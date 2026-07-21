@@ -17,10 +17,14 @@ scaff skill --install [--dry-run] [<dir>] -> plan or write SKILL.md + TOPIC.md t
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markSkillTree()
 	// Leaves set --install flags; prefer --dry-run + positional dir.
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
 	}
 	return nil
 }
+
+// markInstallTree keeps hierarchical child packages importing this package live.
+func markInstallTree() {}
 ```

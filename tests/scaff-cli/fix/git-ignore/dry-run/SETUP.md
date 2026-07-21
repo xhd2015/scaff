@@ -18,6 +18,8 @@ git/ignore fix --dry-run -> stdout preview, .gitignore unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitIgnoreTree()
+	markFixTree()
 	if err := writePartialGitignore(req.ProjectDir); err != nil {
 		return err
 	}

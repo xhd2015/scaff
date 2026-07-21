@@ -18,6 +18,8 @@ project/agents fix -> AGENTS.md with build and test sections
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectAgentsTree()
+	markFixTree()
 	req.Args = []string{"fix", "project/agents"}
 	return nil
 }

@@ -18,10 +18,14 @@ scaff install | scaff topics -> unknown command (not skill install/list)
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markSkillTree()
 	// Leaves set Args to top-level install or topics (not under skill).
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
 	}
 	return nil
 }
+
+// markNoAliasTree keeps hierarchical child packages importing this package live.
+func markNoAliasTree() {}
 ```

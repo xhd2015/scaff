@@ -18,9 +18,13 @@ fix executor -> script/install -> build-then-install helper stub
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markScriptInstallTree keeps hierarchical child packages importing this package live.
+func markScriptInstallTree() {}
 ```

@@ -18,9 +18,13 @@ fix executor -> project/readme -> README.md with install line
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markProjectReadmeTree keeps hierarchical child packages importing this package live.
+func markProjectReadmeTree() {}
 ```

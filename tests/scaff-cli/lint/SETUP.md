@@ -28,4 +28,7 @@ func Setup(t *testing.T, req *Request) error {
 	}
 	return nil
 }
+
+// markLintTree keeps hierarchical child packages importing this package live.
+func markLintTree() {}
 ```

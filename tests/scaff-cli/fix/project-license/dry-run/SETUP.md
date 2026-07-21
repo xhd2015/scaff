@@ -17,6 +17,8 @@ project/license fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectLicenseTree()
+	markFixTree()
 	req.Args = []string{"fix", "project/license", "--dry-run"}
 	return nil
 }

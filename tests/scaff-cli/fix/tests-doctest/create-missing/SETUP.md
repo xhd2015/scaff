@@ -18,6 +18,8 @@ tests/doctest fix -> tests/myapp-cli/ with module substitutions
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markTestsDoctestTree()
+	markFixTree()
 	req.Args = []string{"fix", "tests/doctest"}
 	return nil
 }

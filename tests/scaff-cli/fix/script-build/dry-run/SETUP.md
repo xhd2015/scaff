@@ -17,6 +17,8 @@ script/build fix --dry-run -> stdout preview, build.go unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptBuildTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/build", "--dry-run"}
 	return nil
 }

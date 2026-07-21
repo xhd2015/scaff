@@ -17,6 +17,8 @@ github/release fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubReleaseTree()
+	markFixTree()
 	req.Args = []string{"fix", "github/release", "--dry-run"}
 	return nil
 }

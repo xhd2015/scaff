@@ -18,9 +18,13 @@ fix executor -> install/via-curl -> curl installer script
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markInstallViaCurlTree keeps hierarchical child packages importing this package live.
+func markInstallViaCurlTree() {}
 ```

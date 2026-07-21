@@ -17,6 +17,8 @@ install/via-curl fix -> install-via-curl.sh at repo root
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markInstallViaCurlTree()
+	markFixTree()
 	req.Args = []string{"fix", "install/via-curl"}
 	return nil
 }

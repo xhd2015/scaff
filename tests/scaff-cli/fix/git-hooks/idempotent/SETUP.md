@@ -18,6 +18,8 @@ git/hooks fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitHooksTree()
+	markFixTree()
 	if err := writeGitHooksMain(req.ProjectDir); err != nil {
 		return err
 	}

@@ -18,6 +18,8 @@ Rule project/license -> missing status for LICENSE
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markIssuesFoundTree()
+	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

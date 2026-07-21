@@ -17,6 +17,7 @@ fix executor -> unknown rule -> exit 2
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

@@ -17,6 +17,8 @@ project/layout/cmd fix -> cmd/myapp/main.go
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectLayoutCmdTree()
+	markFixTree()
 	req.Args = []string{"fix", "project/layout/cmd"}
 	return nil
 }

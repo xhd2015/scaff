@@ -19,6 +19,8 @@ github/release fix -> append missing build_release.go
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubReleaseTree()
+	markFixTree()
 	customMain := "// CUSTOM_RELEASE_MAIN\n"
 	if err := writeGithubReleaseMain(req.ProjectDir, customMain); err != nil {
 		return err

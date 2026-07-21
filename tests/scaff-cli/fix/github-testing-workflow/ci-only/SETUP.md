@@ -18,6 +18,8 @@ github/testing-workflow fix -> test.yml alongside ci.yml
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubTestingWorkflowTree()
+	markFixTree()
 	if err := writeCiWorkflow(req.ProjectDir); err != nil {
 		return err
 	}

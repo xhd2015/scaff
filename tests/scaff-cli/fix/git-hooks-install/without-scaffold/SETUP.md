@@ -17,6 +17,8 @@ git/hooks/install fix -> exit 1, hint scaff fix git/hooks
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitHooksInstallTree()
+	markFixTree()
 	req.Args = []string{"fix", "git/hooks/install"}
 	return nil
 }

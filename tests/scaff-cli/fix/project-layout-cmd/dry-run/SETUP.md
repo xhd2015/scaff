@@ -17,6 +17,8 @@ project/layout/cmd fix --dry-run -> stdout preview, cmd main unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectLayoutCmdTree()
+	markFixTree()
 	req.Args = []string{"fix", "project/layout/cmd", "--dry-run"}
 	return nil
 }

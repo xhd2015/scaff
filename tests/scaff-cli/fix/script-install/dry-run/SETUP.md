@@ -17,6 +17,8 @@ script/install fix --dry-run -> stdout preview, install.go unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptInstallTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/install", "--dry-run"}
 	return nil
 }

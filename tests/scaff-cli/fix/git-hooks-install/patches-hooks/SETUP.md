@@ -19,6 +19,8 @@ git/hooks/install fix -> # scaff hooks marker in .git/hooks/
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitHooksInstallTree()
+	markFixTree()
 	if err := writeGitHooksMain(req.ProjectDir); err != nil {
 		return err
 	}

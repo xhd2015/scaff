@@ -16,6 +16,9 @@ scaff skill --show github/upload -> name: scaff/github/upload
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markShowTopicTree()
+	markShowTree()
+	markSkillTree()
 	req.Args = []string{"skill", "--show", "github/upload"}
 	return nil
 }

@@ -18,6 +18,8 @@ script/dev fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptDevTree()
+	markFixTree()
 	if err := writeScriptDev(req.ProjectDir); err != nil {
 		return err
 	}

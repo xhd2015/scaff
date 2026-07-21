@@ -17,6 +17,8 @@ git/hooks fix -> minimal hook runner (no sub-check dirs)
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitHooksTree()
+	markFixTree()
 	req.Args = []string{"fix", "git/hooks"}
 	return nil
 }

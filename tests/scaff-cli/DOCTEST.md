@@ -275,6 +275,8 @@ import (
 	"strings"
 	"sync"
 	"testing"
+
+	"github.com/xhd2015/doctest/session"
 )
 
 type Request struct {
@@ -291,8 +293,9 @@ type Response struct {
 	ExitCode int
 }
 
+// Process-local scaff binary (one-process suite; in-memory mutex, not session cache).
 var (
-	scaffBinOnce sync.Once
+	scaffBinMu   sync.Mutex
 	scaffBinPath string
 	scaffBinErr  error
 )
@@ -333,31 +336,27 @@ func Run(t *testing.T, req *Request) (*Response, error) {
 	}, nil
 }
 
-func repoRoot(t *testing.T) string {
+func buildScaffBinary(t *testing.T, d *session.Doctest) string {
 	t.Helper()
-	root, err := filepath.Abs(filepath.Join(DOCTEST_ROOT, "..", ".."))
-	if err != nil {
-		t.Fatalf("repo root: %v", err)
+	scaffBinMu.Lock()
+	defer scaffBinMu.Unlock()
+	if scaffBinPath != "" || scaffBinErr != nil {
+		if scaffBinErr != nil {
+			t.Fatal(scaffBinErr)
+		}
+		return scaffBinPath
 	}
-	return root
-}
-
-func buildScaffBinary(t *testing.T) string {
-	t.Helper()
-	scaffBinOnce.Do(func() {
-		dir := filepath.Join(os.TempDir(), "scaff-doctest-"+DOCTEST_SESSION_ID)
-		if err := os.MkdirAll(dir, 0o755); err != nil {
-			scaffBinErr = err
-			return
-		}
-		scaffBinPath = filepath.Join(dir, "scaff")
-		build := exec.Command("go", "build", "-o", scaffBinPath, "./cmd/scaff")
-		build.Dir = repoRoot(t)
-		if output, err := build.CombinedOutput(); err != nil {
-			scaffBinErr = fmt.Errorf("go build ./cmd/scaff: %w: %s", err, strings.TrimSpace(string(output)))
-		}
-	})
-	if scaffBinErr != nil {
+	dir, err := os.MkdirTemp("", "scaff-doctest-bin-")
+	if err != nil {
+		scaffBinErr = err
+		t.Fatal(err)
+	}
+	scaffBinPath = filepath.Join(dir, "scaff")
+	moduleRoot := filepath.Clean(filepath.Join(d.DOCTEST_ROOT, "..", ".."))
+	build := exec.Command("go", "build", "-o", scaffBinPath, "./cmd/scaff")
+	build.Dir = moduleRoot
+	if output, err := build.CombinedOutput(); err != nil {
+		scaffBinErr = fmt.Errorf("go build ./cmd/scaff: %w: %s", err, strings.TrimSpace(string(output)))
 		t.Fatal(scaffBinErr)
 	}
 	return scaffBinPath

@@ -18,6 +18,8 @@ git/ignore -> only .DS_Store, .vscode/, *.swp, *~ patterns
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProfileOverrideTree()
+	markLintTree()
 	if err := writeFile(req.ProjectDir, "README.md", "# app\n"); err != nil {
 		return err
 	}

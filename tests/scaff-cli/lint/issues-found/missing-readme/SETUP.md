@@ -18,6 +18,8 @@ Rule project/readme -> missing status for README.md
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markIssuesFoundTree()
+	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

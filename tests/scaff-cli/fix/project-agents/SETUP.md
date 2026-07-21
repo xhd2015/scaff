@@ -18,9 +18,13 @@ fix executor -> project/agents -> AGENTS.md with build/test sections
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markProjectAgentsTree keeps hierarchical child packages importing this package live.
+func markProjectAgentsTree() {}
 ```

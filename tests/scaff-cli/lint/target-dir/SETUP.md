@@ -18,7 +18,11 @@ scaff lint --dir <subdir> -> rules evaluated relative to subdir
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markLintTree()
 	req.RunDir = req.ProjectDir
 	return nil
 }
+
+// markTargetDirTree keeps hierarchical child packages importing this package live.
+func markTargetDirTree() {}
 ```

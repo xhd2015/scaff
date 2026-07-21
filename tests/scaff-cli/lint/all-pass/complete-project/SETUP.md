@@ -18,6 +18,8 @@ lint orchestrator -> exit 0 all good
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markAllPassTree()
+	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

@@ -18,6 +18,8 @@ script/generate fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptGenerateTree()
+	markFixTree()
 	if err := writeScriptGenerate(req.ProjectDir); err != nil {
 		return err
 	}

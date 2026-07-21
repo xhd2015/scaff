@@ -17,6 +17,8 @@ git/pre-commit fix --dry-run -> stdout preview, no file
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGitPreCommitTree()
+	markFixTree()
 	req.Args = []string{"fix", "git/pre-commit", "--dry-run"}
 	return nil
 }

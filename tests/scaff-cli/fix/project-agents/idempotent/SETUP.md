@@ -18,6 +18,8 @@ project/agents fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectAgentsTree()
+	markFixTree()
 	if err := writeAGENTS(req.ProjectDir, "# CUSTOM_AGENTS\n\nExisting agent instructions.\n"); err != nil {
 		return err
 	}

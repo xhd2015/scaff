@@ -17,6 +17,8 @@ script/install fix -> script/install/install.go
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptInstallTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/install"}
 	return nil
 }

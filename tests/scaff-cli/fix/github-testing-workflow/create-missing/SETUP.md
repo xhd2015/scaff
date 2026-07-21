@@ -17,6 +17,8 @@ github/testing-workflow fix -> embedded template
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubTestingWorkflowTree()
+	markFixTree()
 	req.Args = []string{"fix", "github/testing-workflow"}
 	return nil
 }

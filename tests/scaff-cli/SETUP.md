@@ -10,36 +10,43 @@ Test harness -> scaff binary -> stdout/stderr/exit code -> Response
 
 ## Preconditions
 
-- The `scaff` CLI binary is built once per doctest session from `./cmd/scaff`.
+- The `scaff` CLI binary is built once per process (in-memory mutex + memo) from `./cmd/scaff`.
 - Each test case runs against an isolated temporary project directory.
 
 ## Steps
 
 1. Allocate a temporary project directory for the test case.
-2. Build or reuse the cached `scaff` binary.
+2. Build or reuse the process-local `scaff` binary (`buildScaffBinary`).
 3. Descendant `Setup` functions materialize project fixtures (when needed) and set CLI arguments.
 4. `Run` executes `scaff` with `req.Args` from `req.RunDir` (defaults to project root).
 
 ## Context
 
-- `DOCTEST_ROOT` points at `tests/scaff-cli`.
-- `DOCTEST_SESSION_ID` scopes the cached binary build directory.
+- `d.DOCTEST_ROOT` points at `tests/scaff-cli` (`d *session.Doctest`).
+- Binary is built into `os.MkdirTemp("", "scaff-doctest-bin-")` once per process (not session disk cache).
 - Leaf setups write fixtures under `req.ProjectDir` using shared helpers (lint/fix).
 - Skill leaves reuse the same harness; no project fixture is required for skillcmd actions.
 
 ```go
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/xhd2015/doctest/session"
 )
 
-func Setup(t *testing.T, req *Request) error {
+// scaffDoctestRoot is set from d.DOCTEST_ROOT in root Setup for fixture helpers.
+var scaffDoctestRoot string
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	scaffDoctestRoot = d.DOCTEST_ROOT
 	req.ProjectDir = t.TempDir()
 	req.RunDir = req.ProjectDir
-	req.ScaffBin = buildScaffBinary(t)
+	req.ScaffBin = buildScaffBinary(t, d)
 	return nil
 }
 
@@ -156,7 +163,10 @@ jobs:
 }
 
 func readFixture(name string) (string, error) {
-	data, err := os.ReadFile(filepath.Join(DOCTEST_ROOT, "testdata", name))
+	if scaffDoctestRoot == "" {
+		return "", fmt.Errorf("scaffDoctestRoot unset; root Setup must run first")
+	}
+	data, err := os.ReadFile(filepath.Join(scaffDoctestRoot, "testdata", name))
 	if err != nil {
 		return "", err
 	}

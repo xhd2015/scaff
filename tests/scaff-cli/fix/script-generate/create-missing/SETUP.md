@@ -17,6 +17,8 @@ script/generate fix -> generator entrypoint stub
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptGenerateTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/generate"}
 	return nil
 }

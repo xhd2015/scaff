@@ -18,6 +18,8 @@ lint orchestrator -> default rules only (no opt-in rules)
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markIssuesFoundTree()
+	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

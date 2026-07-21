@@ -18,6 +18,8 @@ project/license fix -> LICENSE with year and owner
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markProjectLicenseTree()
+	markFixTree()
 	req.Args = []string{"fix", "project/license"}
 	return nil
 }

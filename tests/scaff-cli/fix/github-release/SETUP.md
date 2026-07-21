@@ -18,9 +18,13 @@ fix executor -> github/release -> release scripts under script/github/
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markGithubReleaseTree keeps hierarchical child packages importing this package live.
+func markGithubReleaseTree() {}
 ```

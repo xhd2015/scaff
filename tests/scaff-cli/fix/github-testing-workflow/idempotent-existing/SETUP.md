@@ -18,6 +18,8 @@ github/testing-workflow fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubTestingWorkflowTree()
+	markFixTree()
 	if err := writeTestWorkflow(req.ProjectDir); err != nil {
 		return err
 	}

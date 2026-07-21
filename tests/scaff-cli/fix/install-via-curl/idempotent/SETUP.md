@@ -18,6 +18,8 @@ install/via-curl fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markInstallViaCurlTree()
+	markFixTree()
 	if err := writeInstallViaCurl(req.ProjectDir, "#!/usr/bin/env bash\n# CUSTOM_INSTALLER\n"); err != nil {
 		return err
 	}

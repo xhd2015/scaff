@@ -17,6 +17,8 @@ script/bundle/for-linux fix -> script/bundle/for-linux/main.go
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markScriptBundleForLinuxTree()
+	markFixTree()
 	req.Args = []string{"fix", "script/bundle/for-linux"}
 	return nil
 }

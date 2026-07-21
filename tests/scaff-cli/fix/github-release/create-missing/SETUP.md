@@ -18,6 +18,8 @@ github/release fix -> script/github/release + script/github/lib
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markGithubReleaseTree()
+	markFixTree()
 	req.Args = []string{"fix", "github/release"}
 	return nil
 }

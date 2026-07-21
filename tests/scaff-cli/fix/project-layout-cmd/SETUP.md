@@ -18,9 +18,13 @@ fix executor -> project/layout/cmd -> cmd entry main.go
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markFixTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
+
+// markProjectLayoutCmdTree keeps hierarchical child packages importing this package live.
+func markProjectLayoutCmdTree() {}
 ```

@@ -17,6 +17,8 @@ scaff topics -> unknown command, exit non-zero
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markNoAliasTree()
+	markSkillTree()
 	req.Args = []string{"topics"}
 	return nil
 }

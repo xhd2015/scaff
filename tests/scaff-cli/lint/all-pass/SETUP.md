@@ -18,7 +18,11 @@ Project detector -> lint orchestrator -> all rules ok
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markLintTree()
 	req.Args = []string{"lint"}
 	return nil
 }
+
+// markAllPassTree keeps hierarchical child packages importing this package live.
+func markAllPassTree() {}
 ```

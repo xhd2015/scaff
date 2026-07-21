@@ -17,6 +17,8 @@ scaff skill --show not-a-real-topic -> error
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	markShowTree()
+	markSkillTree()
 	req.Args = []string{"skill", "--show", "not-a-real-topic"}
 	return nil
 }
