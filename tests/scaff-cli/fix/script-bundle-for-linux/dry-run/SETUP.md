@@ -17,8 +17,6 @@ script/bundle/for-linux fix --dry-run -> stdout preview, main.go unchanged
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markScriptBundleForLinuxTree()
-	markFixTree()
 	req.Args = []string{"fix", "script/bundle/for-linux", "--dry-run"}
 	return nil
 }

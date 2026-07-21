@@ -19,8 +19,6 @@
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProfileOverrideTree()
-	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

@@ -17,8 +17,6 @@ project/readme fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectReadmeTree()
-	markFixTree()
 	req.Args = []string{"fix", "project/readme", "--dry-run"}
 	return nil
 }

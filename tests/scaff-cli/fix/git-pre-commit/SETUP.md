@@ -18,13 +18,10 @@ fix executor -> git/pre-commit -> pre-commit script
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
 
-// markGitPreCommitTree keeps hierarchical child packages importing this package live.
-func markGitPreCommitTree() {}
 ```

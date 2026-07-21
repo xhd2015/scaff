@@ -18,8 +18,6 @@ scaff skill --show <path> | scaff skill <path> --show -> topic body
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTree()
-	markSkillTree()
 	// Leaves set Args with topic path and --show order.
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
@@ -27,6 +25,4 @@ func Setup(t *testing.T, req *Request) error {
 	return nil
 }
 
-// markShowTopicTree keeps hierarchical child packages importing this package live.
-func markShowTopicTree() {}
 ```

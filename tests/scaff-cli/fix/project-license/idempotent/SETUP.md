@@ -18,8 +18,6 @@ project/license fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectLicenseTree()
-	markFixTree()
 	if err := writeLICENSE(req.ProjectDir, "CUSTOM_LICENSE\n\nExisting license text.\n"); err != nil {
 		return err
 	}

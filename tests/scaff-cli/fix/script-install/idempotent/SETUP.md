@@ -18,8 +18,6 @@ script/install fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markScriptInstallTree()
-	markFixTree()
 	if err := writeScriptInstall(req.ProjectDir); err != nil {
 		return err
 	}

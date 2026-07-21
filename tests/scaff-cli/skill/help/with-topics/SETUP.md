@@ -16,8 +16,6 @@ scaff skill --help -> mentions --show, --install, --list + Available topics
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markHelpTree()
-	markSkillTree()
 	if len(req.Args) == 0 {
 		req.Args = []string{"skill", "--help"}
 	}

@@ -17,8 +17,6 @@ git/ignore fix -> no vendor/ line
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitIgnoreTree()
-	markFixTree()
 	req.Args = []string{"fix", "git/ignore"}
 	return nil
 }

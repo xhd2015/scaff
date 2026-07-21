@@ -18,8 +18,6 @@ project/readme fix -> README.md with go install line
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectReadmeTree()
-	markFixTree()
 	req.Args = []string{"fix", "project/readme"}
 	return nil
 }

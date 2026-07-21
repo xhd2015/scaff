@@ -17,8 +17,6 @@ project/agents fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectAgentsTree()
-	markFixTree()
 	req.Args = []string{"fix", "project/agents", "--dry-run"}
 	return nil
 }

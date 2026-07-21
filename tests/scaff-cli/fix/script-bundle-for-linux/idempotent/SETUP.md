@@ -18,8 +18,6 @@ script/bundle/for-linux fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markScriptBundleForLinuxTree()
-	markFixTree()
 	if err := writeScriptBundleForLinux(req.ProjectDir); err != nil {
 		return err
 	}

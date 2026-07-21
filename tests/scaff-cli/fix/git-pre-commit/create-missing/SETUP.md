@@ -17,8 +17,6 @@ git/pre-commit fix -> brief pre-commit helper
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitPreCommitTree()
-	markFixTree()
 	req.Args = []string{"fix", "git/pre-commit"}
 	return nil
 }

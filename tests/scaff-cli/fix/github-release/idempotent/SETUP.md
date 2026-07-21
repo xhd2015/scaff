@@ -18,8 +18,6 @@ github/release fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGithubReleaseTree()
-	markFixTree()
 	if err := writeGithubReleaseMain(req.ProjectDir, "// CUSTOM_RELEASE_MAIN\n"); err != nil {
 		return err
 	}

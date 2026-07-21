@@ -20,8 +20,6 @@ scaff lint --dir app -> rules evaluated under app/
 import "path/filepath"
 
 func Setup(t *testing.T, req *Request) error {
-	markTargetDirTree()
-	markLintTree()
 	appDir := filepath.Join(req.ProjectDir, "app")
 	if err := writeGoMod(appDir); err != nil {
 		return err

@@ -18,8 +18,6 @@ project/layout/cmd fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectLayoutCmdTree()
-	markFixTree()
 	if err := writeCmdMyappCustom(req.ProjectDir); err != nil {
 		return err
 	}

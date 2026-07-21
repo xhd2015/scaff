@@ -28,6 +28,4 @@ func Setup(t *testing.T, req *Request) error {
 	return nil
 }
 
-// markFixTree keeps hierarchical child packages importing this package live.
-func markFixTree() {}
 ```

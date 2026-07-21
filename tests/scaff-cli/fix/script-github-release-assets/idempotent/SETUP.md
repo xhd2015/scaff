@@ -18,8 +18,6 @@ script/github/release-assets fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markScriptGithubReleaseAssetsTree()
-	markFixTree()
 	if err := writeScriptGithubReleaseAssets(req.ProjectDir); err != nil {
 		return err
 	}

@@ -18,8 +18,6 @@ git/ignore fix -> new .gitignore with universal + Go patterns
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitIgnoreTree()
-	markFixTree()
 	req.Args = []string{"fix", "git/ignore"}
 	return nil
 }

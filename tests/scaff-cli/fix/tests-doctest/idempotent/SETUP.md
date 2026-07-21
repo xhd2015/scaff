@@ -18,8 +18,6 @@ tests/doctest fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markTestsDoctestTree()
-	markFixTree()
 	if err := writeDoctestTree(req.ProjectDir, "myapp"); err != nil {
 		return err
 	}

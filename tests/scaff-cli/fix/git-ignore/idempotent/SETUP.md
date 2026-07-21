@@ -18,8 +18,6 @@ git/ignore fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitIgnoreTree()
-	markFixTree()
 	if err := writeCompleteGoGitignore(req.ProjectDir); err != nil {
 		return err
 	}

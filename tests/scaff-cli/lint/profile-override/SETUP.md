@@ -18,13 +18,10 @@ Project detector <- --profile flag -> git/ignore pattern set
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markLintTree()
 	if len(req.Args) == 0 {
 		req.Args = []string{"lint"}
 	}
 	return nil
 }
 
-// markProfileOverrideTree keeps hierarchical child packages importing this package live.
-func markProfileOverrideTree() {}
 ```

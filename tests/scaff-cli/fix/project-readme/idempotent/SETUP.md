@@ -18,8 +18,6 @@ project/readme fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markProjectReadmeTree()
-	markFixTree()
 	if err := writeREADME(req.ProjectDir, "# CUSTOM_README\n\nExisting content.\n"); err != nil {
 		return err
 	}

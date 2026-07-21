@@ -18,8 +18,6 @@ scaff lint --json -> valid JSON with rule results
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markJsonOutputTree()
-	markLintTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

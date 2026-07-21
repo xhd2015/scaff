@@ -16,9 +16,6 @@ scaff skill --show install-via-curl -> name: scaff/install-via-curl / install/vi
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTopicTree()
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show", "install-via-curl"}
 	return nil
 }

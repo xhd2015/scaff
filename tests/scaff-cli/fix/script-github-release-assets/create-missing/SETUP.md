@@ -17,8 +17,6 @@ script/github/release-assets fix -> main.go with help + Proposed behavior
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markScriptGithubReleaseAssetsTree()
-	markFixTree()
 	req.Args = []string{"fix", "script/github/release-assets"}
 	return nil
 }

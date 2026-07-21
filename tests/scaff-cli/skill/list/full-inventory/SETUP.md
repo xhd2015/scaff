@@ -18,8 +18,6 @@ scaff skill --list -> scaff + fix, git/*, github/*, install-via-curl, lint, over
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markListTree()
-	markSkillTree()
 	// Args inherited from skill/list parent: skill --list
 	if len(req.Args) == 0 {
 		req.Args = []string{"skill", "--list"}

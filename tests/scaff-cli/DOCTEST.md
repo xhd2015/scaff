@@ -173,7 +173,6 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
         └── top-level-topics/                 scaff topics → unknown command
 ```
 
-
 ## Test Index
 
 | Leaf | Description |

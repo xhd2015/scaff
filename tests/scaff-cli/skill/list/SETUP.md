@@ -17,11 +17,8 @@ scaff skill --list -> "scaff\n" + topic paths (one per line)
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markSkillTree()
 	req.Args = []string{"skill", "--list"}
 	return nil
 }
 
-// markListTree keeps hierarchical child packages importing this package live.
-func markListTree() {}
 ```

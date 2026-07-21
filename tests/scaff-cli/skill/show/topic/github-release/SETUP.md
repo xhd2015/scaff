@@ -16,9 +16,6 @@ scaff skill --show github/release -> name: scaff/github/release / github/release
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTopicTree()
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show", "github/release"}
 	return nil
 }

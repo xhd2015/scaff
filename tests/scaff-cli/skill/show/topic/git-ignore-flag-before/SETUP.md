@@ -17,9 +17,6 @@ scaff skill --show git/ignore -> name: scaff/git/ignore / rule git/ignore
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTopicTree()
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show", "git/ignore"}
 	return nil
 }

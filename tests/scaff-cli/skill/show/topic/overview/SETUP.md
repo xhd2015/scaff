@@ -17,9 +17,6 @@ scaff skill --show overview -> name: scaff/overview
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTopicTree()
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show", "overview"}
 	return nil
 }

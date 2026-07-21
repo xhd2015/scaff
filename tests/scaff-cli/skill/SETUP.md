@@ -30,8 +30,4 @@ func Setup(t *testing.T, req *Request) error {
 	}
 	return nil
 }
-
-// markSkillTree is referenced by nested intermediate SETUP packages so the
-// hierarchical gen keeps a live import of this package.
-func markSkillTree() {}
 ```

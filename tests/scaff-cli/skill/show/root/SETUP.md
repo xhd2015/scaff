@@ -18,8 +18,6 @@ scaff skill --show -> frontmatter name: scaff + index body with retrieve example
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show"}
 	return nil
 }

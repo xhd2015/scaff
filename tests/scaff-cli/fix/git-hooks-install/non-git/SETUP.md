@@ -19,8 +19,6 @@ git/hooks/install fix -> non-git directory error
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitHooksInstallTree()
-	markFixTree()
 	if err := writeGitHooksMain(req.ProjectDir); err != nil {
 		return err
 	}

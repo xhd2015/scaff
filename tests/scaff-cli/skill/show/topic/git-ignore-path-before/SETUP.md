@@ -18,9 +18,6 @@ scaff skill git/ignore --show -> same topic body as --show git/ignore
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTopicTree()
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "git/ignore", "--show"}
 	return nil
 }

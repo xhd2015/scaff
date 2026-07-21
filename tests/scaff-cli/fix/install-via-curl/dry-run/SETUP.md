@@ -17,8 +17,6 @@ install/via-curl fix --dry-run -> preview only
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markInstallViaCurlTree()
-	markFixTree()
 	req.Args = []string{"fix", "install/via-curl", "--dry-run"}
 	return nil
 }

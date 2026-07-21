@@ -18,11 +18,8 @@ scaff lint --json -> LintReport JSON on stdout
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markLintTree()
 	req.Args = []string{"lint", "--json"}
 	return nil
 }
 
-// markJsonOutputTree keeps hierarchical child packages importing this package live.
-func markJsonOutputTree() {}
 ```

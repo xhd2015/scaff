@@ -18,13 +18,10 @@ fix executor -> git/hooks -> hook runner without sub-check dirs
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
 
-// markGitHooksTree keeps hierarchical child packages importing this package live.
-func markGitHooksTree() {}
 ```

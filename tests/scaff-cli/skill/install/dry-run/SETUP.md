@@ -19,8 +19,6 @@ scaff skill --install --dry-run <ProjectDir>
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markInstallTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--install", "--dry-run", req.ProjectDir}
 	return nil
 }

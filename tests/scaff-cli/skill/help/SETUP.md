@@ -17,11 +17,8 @@ scaff skill --help -> usage + --show/--install/--list + topic index
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markSkillTree()
 	req.Args = []string{"skill", "--help"}
 	return nil
 }
 
-// markHelpTree keeps hierarchical child packages importing this package live.
-func markHelpTree() {}
 ```

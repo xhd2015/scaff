@@ -17,8 +17,6 @@ scaff skill --show --header -> ---\n<header>\n---\n (no body)
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markShowTree()
-	markSkillTree()
 	req.Args = []string{"skill", "--show", "--header"}
 	return nil
 }

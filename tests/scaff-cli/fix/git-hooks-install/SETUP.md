@@ -18,13 +18,10 @@ fix executor -> git/hooks/install -> pre-commit/pre-push markers
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
 
-// markGitHooksInstallTree keeps hierarchical child packages importing this package live.
-func markGitHooksInstallTree() {}
 ```

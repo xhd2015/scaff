@@ -18,8 +18,6 @@ Rule tests/doctest -> missing status for tests/myapp-cli/DOCTEST.md
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markIssuesFoundTree()
-	markLintTree()
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}

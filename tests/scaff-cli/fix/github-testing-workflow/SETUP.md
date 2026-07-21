@@ -18,13 +18,10 @@ fix executor -> github/testing-workflow -> test.yml template
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markFixTree()
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
 	return nil
 }
 
-// markGithubTestingWorkflowTree keeps hierarchical child packages importing this package live.
-func markGithubTestingWorkflowTree() {}
 ```

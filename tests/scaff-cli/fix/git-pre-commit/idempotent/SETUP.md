@@ -18,8 +18,6 @@ git/pre-commit fix -> nothing to do
 
 ```go
 func Setup(t *testing.T, req *Request) error {
-	markGitPreCommitTree()
-	markFixTree()
 	if err := writeGitPreCommitMain(req.ProjectDir); err != nil {
 		return err
 	}
