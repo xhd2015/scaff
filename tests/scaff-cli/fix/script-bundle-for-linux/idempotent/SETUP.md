@@ -17,8 +17,14 @@ script/bundle/for-linux fix -> nothing to do
 2. Run `scaff fix script/bundle/for-linux`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeScriptBundleForLinux(req.ProjectDir); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeScriptBundleForLinux(d, req.ProjectDir); err != nil {
 		return err
 	}
 	req.Args = []string{"fix", "script/bundle/for-linux"}

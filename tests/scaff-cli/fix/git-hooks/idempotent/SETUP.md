@@ -17,8 +17,14 @@ git/hooks fix -> nothing to do
 2. Run `scaff fix git/hooks`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeGitHooksMain(req.ProjectDir); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeGitHooksMain(d, req.ProjectDir); err != nil {
 		return err
 	}
 	req.Args = []string{"fix", "git/hooks"}
