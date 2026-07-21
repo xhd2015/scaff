@@ -2,7 +2,7 @@
 
 ```
 ---
-version: 2
+version: 3
 ---
 scaff
 fix
@@ -61,7 +61,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 	}
 	// Full inventory, skillcmd ListTreeTopics order (sort.Strings).
 	assert.Output(t, resp.Stdout, `---
-version: 2
+version: 3
 ---
 scaff
 fix

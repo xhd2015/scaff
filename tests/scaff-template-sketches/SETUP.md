@@ -84,7 +84,7 @@ func buildScaffBinary(t *testing.T, d *session.Doctest) string {
 	}
 	scaffBinPath = filepath.Join(dir, "scaff")
 	moduleRoot := filepath.Clean(filepath.Join(d.DOCTEST_ROOT, "..", ".."))
-	build := exec.Command("go", "build", "-o", scaffBinPath, "./cmd/scaff")
+	build := exec.Command("go", "build", "-buildvcs=false", "-o", scaffBinPath, "./cmd/scaff")
 	build.Dir = moduleRoot
 	if output, err := build.CombinedOutput(); err != nil {
 		scaffBinErr = fmt.Errorf("go build ./cmd/scaff: %w: %s", err, strings.TrimSpace(string(output)))
