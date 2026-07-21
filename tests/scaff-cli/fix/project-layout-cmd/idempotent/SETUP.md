@@ -17,8 +17,14 @@ project/layout/cmd fix -> nothing to do
 2. Run `scaff fix project/layout/cmd`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeCmdMyappCustom(req.ProjectDir); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeCmdMyappCustom(d, req.ProjectDir); err != nil {
 		return err
 	}
 	req.Args = []string{"fix", "project/layout/cmd"}

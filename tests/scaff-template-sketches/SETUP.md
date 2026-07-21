@@ -11,12 +11,12 @@ User -> scaff fix -> template write -> file content
 
 - Module is `github.com/xhd2015/scaff`.
 - Each leaf uses an isolated temporary project directory.
-- The `scaff` binary is built once per session from `./cmd/scaff` into a cache
-  directory keyed by `DOCTEST_SESSION_ID`.
+- The `scaff` binary is built once per process (in-memory mutex + memo) from
+  `./cmd/scaff` into `os.MkdirTemp("", "scaff-template-sketches-doctest-bin-")`.
 
 ## Steps
 
-1. Allocate a temp project and build (or reuse) the `scaff` binary.
+1. Allocate a temp project and build (or reuse) the process-local `scaff` binary.
 2. Leaf setups write minimal `go.mod` and set `req.Args` for the fix rule.
 3. `Run` executes `scaff fix <rule>` from the project directory.
 4. Leaf asserts inspect the generated Go file for `Proposed behavior`.
@@ -46,49 +46,48 @@ import (
 	"strings"
 	"sync"
 	"testing"
+
+	"github.com/xhd2015/doctest/session"
 )
 
+// Process-local scaff binary (one-process suite; in-memory mutex).
 var (
-	scaffBinOnce sync.Once
+	scaffBinMu   sync.Mutex
 	scaffBinPath string
 	scaffBinErr  error
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if req == nil {
 		return fmt.Errorf("nil request")
 	}
 	req.ProjectDir = t.TempDir()
 	req.RunDir = req.ProjectDir
-	req.ScaffBin = buildScaffBinary(t)
+	req.ScaffBin = buildScaffBinary(t, d)
 	return nil
 }
 
-func repoRoot(t *testing.T) string {
+func buildScaffBinary(t *testing.T, d *session.Doctest) string {
 	t.Helper()
-	root, err := filepath.Abs(filepath.Join(DOCTEST_ROOT, "..", ".."))
-	if err != nil {
-		t.Fatalf("repo root: %v", err)
+	scaffBinMu.Lock()
+	defer scaffBinMu.Unlock()
+	if scaffBinPath != "" || scaffBinErr != nil {
+		if scaffBinErr != nil {
+			t.Fatal(scaffBinErr)
+		}
+		return scaffBinPath
 	}
-	return root
-}
-
-func buildScaffBinary(t *testing.T) string {
-	t.Helper()
-	scaffBinOnce.Do(func() {
-		dir := filepath.Join(os.TempDir(), "scaff-template-sketches-"+DOCTEST_SESSION_ID)
-		if err := os.MkdirAll(dir, 0o755); err != nil {
-			scaffBinErr = err
-			return
-		}
-		scaffBinPath = filepath.Join(dir, "scaff")
-		build := exec.Command("go", "build", "-buildvcs=false", "-o", scaffBinPath, "./cmd/scaff")
-		build.Dir = repoRoot(t)
-		if output, err := build.CombinedOutput(); err != nil {
-			scaffBinErr = fmt.Errorf("go build ./cmd/scaff: %w: %s", err, strings.TrimSpace(string(output)))
-		}
-	})
-	if scaffBinErr != nil {
+	dir, err := os.MkdirTemp("", "scaff-template-sketches-doctest-bin-")
+	if err != nil {
+		scaffBinErr = err
+		t.Fatal(err)
+	}
+	scaffBinPath = filepath.Join(dir, "scaff")
+	moduleRoot := filepath.Clean(filepath.Join(d.DOCTEST_ROOT, "..", ".."))
+	build := exec.Command("go", "build", "-buildvcs=false", "-o", scaffBinPath, "./cmd/scaff")
+	build.Dir = moduleRoot
+	if output, err := build.CombinedOutput(); err != nil {
+		scaffBinErr = fmt.Errorf("go build ./cmd/scaff: %w: %s", err, strings.TrimSpace(string(output)))
 		t.Fatal(scaffBinErr)
 	}
 	return scaffBinPath

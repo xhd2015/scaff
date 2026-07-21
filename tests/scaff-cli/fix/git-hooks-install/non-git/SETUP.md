@@ -18,8 +18,14 @@ git/hooks/install fix -> non-git directory error
 2. Run `scaff fix git/hooks/install`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeGitHooksMain(req.ProjectDir); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeGitHooksMain(d, req.ProjectDir); err != nil {
 		return err
 	}
 	req.Args = []string{"fix", "git/hooks/install"}

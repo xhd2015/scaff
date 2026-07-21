@@ -20,4 +20,5 @@ func Setup(t *testing.T, req *Request) error {
 	req.Args = []string{"skill", "--list"}
 	return nil
 }
+
 ```

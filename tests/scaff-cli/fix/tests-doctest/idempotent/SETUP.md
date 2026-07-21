@@ -17,8 +17,14 @@ tests/doctest fix -> nothing to do
 2. Run `scaff fix tests/doctest`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeDoctestTree(req.ProjectDir, "myapp"); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeDoctestTree(d, req.ProjectDir, "myapp"); err != nil {
 		return err
 	}
 	custom := "# CUSTOM_DOCTEST\n\n" + readProjectFile(t, req, "tests/myapp-cli/DOCTEST.md")

@@ -10,36 +10,39 @@ Test harness -> scaff binary -> stdout/stderr/exit code -> Response
 
 ## Preconditions
 
-- The `scaff` CLI binary is built once per doctest session from `./cmd/scaff`.
+- The `scaff` CLI binary is built once per process (in-memory mutex + memo) from `./cmd/scaff`.
 - Each test case runs against an isolated temporary project directory.
 
 ## Steps
 
 1. Allocate a temporary project directory for the test case.
-2. Build or reuse the cached `scaff` binary.
+2. Build or reuse the process-local `scaff` binary (`buildScaffBinary`).
 3. Descendant `Setup` functions materialize project fixtures (when needed) and set CLI arguments.
 4. `Run` executes `scaff` with `req.Args` from `req.RunDir` (defaults to project root).
 
 ## Context
 
-- `DOCTEST_ROOT` points at `tests/scaff-cli`.
-- `DOCTEST_SESSION_ID` scopes the cached binary build directory.
+- `d.DOCTEST_ROOT` points at `tests/scaff-cli` (`d *session.Doctest`).
+- Binary is built into `os.MkdirTemp("", "scaff-doctest-bin-")` once per process (not session disk cache).
 - Leaf setups write fixtures under `req.ProjectDir` using shared helpers (lint/fix).
 - Skill leaves reuse the same harness; no project fixture is required for skillcmd actions.
 
 ```go
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/xhd2015/doctest/session"
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.ProjectDir = t.TempDir()
 	req.RunDir = req.ProjectDir
-	req.ScaffBin = buildScaffBinary(t)
+	req.ScaffBin = buildScaffBinary(t, d)
 	return nil
 }
 
@@ -110,13 +113,13 @@ func writeAGENTS(dir, content string) error {
 	return writeFile(dir, "AGENTS.md", content)
 }
 
-func writeDoctestTree(dir, name string) error {
+func writeDoctestTree(d *session.Doctest, dir, name string) error {
 	cliDir := filepath.Join("tests", name+"-cli")
-	doctestTpl, err := readFixture("doctest-cli-DOCTEST.md.tpl")
+	doctestTpl, err := readFixture(d, "doctest-cli-DOCTEST.md.tpl")
 	if err != nil {
 		return err
 	}
-	setupTpl, err := readFixture("doctest-cli-SETUP.md.tpl")
+	setupTpl, err := readFixture(d, "doctest-cli-SETUP.md.tpl")
 	if err != nil {
 		return err
 	}
@@ -155,40 +158,40 @@ jobs:
 	return writeFile(dir, ".github/workflows/ci.yml", content)
 }
 
-func readFixture(name string) (string, error) {
-	data, err := os.ReadFile(filepath.Join(DOCTEST_ROOT, "testdata", name))
+func readFixture(d *session.Doctest, name string) (string, error) {
+	data, err := os.ReadFile(filepath.Join(d.DOCTEST_ROOT, "testdata", name))
 	if err != nil {
 		return "", err
 	}
 	return string(data), nil
 }
 
-func writeScriptGenerate(dir string) error {
-	content, err := readFixture("script-generate-main.go")
+func writeScriptGenerate(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "script-generate-main.go")
 	if err != nil {
 		return err
 	}
 	return writeFile(dir, "script/generate/main.go", content)
 }
 
-func writeScriptInstall(dir string) error {
-	content, err := readFixture("script-install-install.go")
+func writeScriptInstall(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "script-install-install.go")
 	if err != nil {
 		return err
 	}
 	return writeFile(dir, "script/install/install.go", content)
 }
 
-func writeScriptBuild(dir string) error {
-	content, err := readFixture("script-build-build.go")
+func writeScriptBuild(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "script-build-build.go")
 	if err != nil {
 		return err
 	}
 	return writeFile(dir, "script/build/build.go", content)
 }
 
-func writeScriptDev(dir string) error {
-	content, err := readFixture("script-dev-main.go")
+func writeScriptDev(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "script-dev-main.go")
 	if err != nil {
 		return err
 	}
@@ -199,32 +202,32 @@ func writeCmdMain(dir, name, content string) error {
 	return writeFile(dir, filepath.Join("cmd", name, "main.go"), content)
 }
 
-func writeCmdMyappCustom(dir string) error {
-	content, err := readFixture("cmd-myapp-main-custom.go")
+func writeCmdMyappCustom(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "cmd-myapp-main-custom.go")
 	if err != nil {
 		return err
 	}
 	return writeCmdMain(dir, "myapp", content)
 }
 
-func writeScriptBundleForLinux(dir string) error {
-	content, err := readFixture("script-bundle-for-linux-main.go")
+func writeScriptBundleForLinux(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "script-bundle-for-linux-main.go")
 	if err != nil {
 		return err
 	}
 	return writeFile(dir, "script/bundle/for-linux/main.go", content)
 }
 
-func writeGitHooksMain(dir string) error {
-	content, err := readFixture("git-hooks-main.go")
+func writeGitHooksMain(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "git-hooks-main.go")
 	if err != nil {
 		return err
 	}
 	return writeFile(dir, "script/git-hooks/main.go", content)
 }
 
-func writeGitPreCommitMain(dir string) error {
-	content, err := readFixture("git-pre-commit-main.go")
+func writeGitPreCommitMain(d *session.Doctest, dir string) error {
+	content, err := readFixture(d, "git-pre-commit-main.go")
 	if err != nil {
 		return err
 	}

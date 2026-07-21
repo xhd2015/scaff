@@ -17,8 +17,14 @@ script/generate fix -> nothing to do
 2. Run `scaff fix script/generate`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
-	if err := writeScriptGenerate(req.ProjectDir); err != nil {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
+	if err := writeScriptGenerate(d, req.ProjectDir); err != nil {
 		return err
 	}
 	req.Args = []string{"fix", "script/generate"}

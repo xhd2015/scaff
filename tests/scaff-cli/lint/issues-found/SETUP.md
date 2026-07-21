@@ -25,4 +25,5 @@ func Setup(t *testing.T, req *Request) error {
 	req.Args = []string{"lint"}
 	return nil
 }
+
 ```

@@ -17,7 +17,13 @@ lint orchestrator -> exit 0 all good
 2. Run `scaff lint`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+import (
+	"testing"
+
+	"github.com/xhd2015/doctest/session"
+)
+
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}
@@ -33,7 +39,7 @@ func Setup(t *testing.T, req *Request) error {
 	if err := writeLICENSE(req.ProjectDir, "MIT License\n\nCopyright (c) 2020-present, OWNER\n\nPermission is hereby granted, free of charge...\n"); err != nil {
 		return err
 	}
-	if err := writeDoctestTree(req.ProjectDir, "app"); err != nil {
+	if err := writeDoctestTree(d, req.ProjectDir, "app"); err != nil {
 		return err
 	}
 	req.Args = []string{"lint"}

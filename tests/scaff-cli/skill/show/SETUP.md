@@ -17,10 +17,12 @@ scaff skill --show [path] | scaff skill <path> --show -> skill body on stdout
 
 ```go
 func Setup(t *testing.T, req *Request) error {
+	// Keep parent skill package import live under hierarchical gen.
 	// Leaves narrow Args for root, topic, header, or unknown path.
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
 	}
 	return nil
 }
+
 ```
