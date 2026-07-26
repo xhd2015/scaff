@@ -33,7 +33,7 @@ reported by lint.
 `script/generate`, `script/install`, `script/build`, `script/dev`,
 `script/bundle/for-linux`, `script/git-hooks`, hook installation into
 `.git/hooks/`, GitHub release scripts under `script/github/`, release-assets
-helper under `script/github/release-assets/`, and the root `install-via-curl.sh`
+helper under `script/github/release-assets/`, and the root `install.sh`
 curl installer.
 
 Opt-in fix rules (`project/agents`, `project/layout/cmd`, `script/dev`,
@@ -236,7 +236,7 @@ tests/scaff-cli/                              [Command, Rule/Topic, Flags, Fixtu
 | `fix/github-release/partial-scaffold` | Creates missing lib when release main already exists |
 | `fix/github-release/idempotent` | Existing release scaffold is no-op |
 | `fix/github-release/dry-run` | `--dry-run` previews without writing release files |
-| `fix/install-via-curl/create-missing` | Creates `install-via-curl.sh` with GitHub URL patterns |
+| `fix/install-via-curl/create-missing` | Creates `install.sh` with GitHub URL patterns |
 | `fix/install-via-curl/idempotent` | Existing installer script is no-op |
 | `fix/install-via-curl/dry-run` | `--dry-run` previews without writing installer |
 | `fix/script-github-release-assets/create-missing` | Creates `script/github/release-assets/main.go` with Proposed behavior + help |

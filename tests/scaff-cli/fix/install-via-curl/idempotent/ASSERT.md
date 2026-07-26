@@ -1,7 +1,7 @@
 ## Expected
 
 - Exit code is `0`.
-- Existing `install-via-curl.sh` is not overwritten.
+- Existing `install.sh` is not overwritten.
 - Output indicates nothing to do (or already exists).
 
 ## Exit Code
@@ -21,7 +21,7 @@ func Assert(t *testing.T, req *Request, resp *Response, err error) {
 	if resp.ExitCode != 0 {
 		t.Fatalf("exit code = %d, want 0\n%s", resp.ExitCode, resp.Combined)
 	}
-	content := readProjectFile(t, req, "install-via-curl.sh")
+	content := readProjectFile(t, req, "install.sh")
 	if !strings.Contains(content, "CUSTOM_INSTALLER") {
 		t.Fatalf("expected custom installer preserved, got:\n%s", content)
 	}

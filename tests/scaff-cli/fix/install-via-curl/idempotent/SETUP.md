@@ -3,13 +3,13 @@
 **Feature**: fix install/via-curl no-op when installer exists
 
 ```
-# install-via-curl.sh present -> no overwrite
+# install.sh present -> no overwrite
 install/via-curl fix -> nothing to do
 ```
 
 ## Preconditions
 
-- `install-via-curl.sh` already exists with custom marker content.
+- `install.sh` already exists with custom marker content.
 
 ## Steps
 

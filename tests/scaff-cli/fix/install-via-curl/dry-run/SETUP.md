@@ -9,7 +9,7 @@ install/via-curl fix --dry-run -> preview only
 
 ## Preconditions
 
-- Project has no `install-via-curl.sh`.
+- Project has no `install.sh`.
 
 ## Steps
 

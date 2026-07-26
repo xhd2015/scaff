@@ -3,7 +3,7 @@
 **Feature**: scaff fix install/via-curl
 
 ```
-# scaffold install-via-curl.sh at repo root from go.mod metadata
+# scaffold install.sh at repo root from go.mod metadata
 fix executor -> install/via-curl -> curl installer script
 ```
 

@@ -8,7 +8,11 @@ import (
 	"github.com/xhd2015/scaff/internal/model"
 )
 
-const installViaCurlPath = "install-via-curl.sh"
+// installViaCurlPath is the scaffolded root installer (curl | bash from GitHub Releases).
+const installViaCurlPath = "install.sh"
+
+// installViaCurlLegacyPath is the pre-rename filename; fix migrates it to installViaCurlPath.
+const installViaCurlLegacyPath = "install-via-curl.sh"
 
 const installViaCurlTemplate = `#!/usr/bin/env bash
 set -eo pipefail
@@ -120,11 +124,32 @@ func FixInstallViaCurl(project model.Project, dryRun bool) (model.FixResult, err
 	}
 
 	path := filepath.Join(project.Root, installViaCurlPath)
+	legacy := filepath.Join(project.Root, installViaCurlLegacyPath)
+
 	if _, err := os.Stat(path); err == nil {
 		return model.FixResult{
 			RuleID:  "install/via-curl",
 			Actions: []string{fmt.Sprintf("%s already exists, nothing to do", installViaCurlPath)},
 		}, nil
+	} else if !os.IsNotExist(err) {
+		return model.FixResult{}, err
+	}
+
+	// Migrate legacy filename if present.
+	if _, err := os.Stat(legacy); err == nil {
+		result := model.FixResult{RuleID: "install/via-curl"}
+		if dryRun {
+			result.Actions = []string{fmt.Sprintf(
+				"dry-run: would rename %s -> %s", installViaCurlLegacyPath, installViaCurlPath)}
+			return result, nil
+		}
+		if err := os.Rename(legacy, path); err != nil {
+			return model.FixResult{}, err
+		}
+		result.Changed = true
+		result.Actions = []string{fmt.Sprintf(
+			"renamed %s -> %s", installViaCurlLegacyPath, installViaCurlPath)}
+		return result, nil
 	} else if !os.IsNotExist(err) {
 		return model.FixResult{}, err
 	}

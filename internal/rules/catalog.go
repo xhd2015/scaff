@@ -106,7 +106,7 @@ var Catalog = []RuleInfo{
 	},
 	{
 		ID:          "install/via-curl",
-		Description: "install-via-curl.sh curl installer at repo root",
+		Description: "install.sh curl installer at repo root",
 		Lint:        false,
 		Fix:         true,
 	},

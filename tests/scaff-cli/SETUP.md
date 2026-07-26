@@ -71,7 +71,7 @@ func writeGithubReleaseLib(dir, content string) error {
 }
 
 func writeInstallViaCurl(dir, content string) error {
-	return writeFile(dir, "install-via-curl.sh", content)
+	return writeFile(dir, "install.sh", content)
 }
 
 func writePackageJSON(dir string) error {
