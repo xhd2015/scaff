@@ -36,7 +36,7 @@ import (
 	"github.com/xhd2015/scaff/internal/rules"
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Leaf compares Catalog IDs to the fixed slash map (11 rules after P5).
 	if len(rules.Catalog) == 0 {
 		return fmt.Errorf("rules.Catalog is empty")

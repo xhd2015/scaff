@@ -16,7 +16,7 @@ script/dev fix --dry-run -> stdout preview, dev main unchanged
 1. Run `scaff fix script/dev --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/dev", "--dry-run"}
 	return nil
 }

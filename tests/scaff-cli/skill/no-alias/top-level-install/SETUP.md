@@ -16,7 +16,7 @@ scaff install -> unknown command, exit non-zero
 1. Run `scaff install --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"install", "--dry-run"}
 	return nil
 }

@@ -32,7 +32,7 @@ import (
 	"testing"
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.ProjectDir = t.TempDir()
 	req.RunDir = req.ProjectDir
 	req.ScaffBin = buildScaffBinary(t)

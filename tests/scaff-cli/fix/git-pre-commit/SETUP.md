@@ -17,7 +17,7 @@ fix executor -> git/pre-commit -> pre-commit script
 2. Run `scaff fix git/pre-commit`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

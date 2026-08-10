@@ -18,7 +18,7 @@ scaff skill --install --dry-run <ProjectDir>
 1. Run `scaff skill --install --dry-run` with `req.ProjectDir` as positional dir.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--install", "--dry-run", req.ProjectDir}
 	return nil
 }

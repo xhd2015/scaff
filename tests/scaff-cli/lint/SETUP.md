@@ -22,7 +22,7 @@ scaff lint [flags] -> LintReport -> stdout/stderr + exit code
 - Exit 0 when all default rules pass; exit 1 when issues are found.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if req.Args == nil {
 		req.Args = []string{"lint"}
 	}

@@ -17,7 +17,7 @@ scaff skill --list -> scaff + fix, git/*, github/*, install-via-curl, lint, over
 1. Assert stdout matches the complete sorted inventory (leaf Assert).
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Args inherited from skill/list parent: skill --list
 	if len(req.Args) == 0 {
 		req.Args = []string{"skill", "--list"}

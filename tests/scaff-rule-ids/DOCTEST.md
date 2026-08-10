@@ -86,6 +86,7 @@ import (
 	"os/exec"
 	"testing"
 
+	"github.com/xhd2015/doctest/session"
 	"github.com/xhd2015/scaff/internal/rules"
 )
 
@@ -106,7 +107,7 @@ type Response struct {
 	ExitCode int
 }
 
-func Run(t *testing.T, req *Request) (*Response, error) {
+func Run(t *testing.T, d *session.Doctest, req *Request) (*Response, error) {
 	// CLI mode: fix (or other) command via built binary.
 	if len(req.Args) > 0 {
 		if req.ScaffBin == "" {

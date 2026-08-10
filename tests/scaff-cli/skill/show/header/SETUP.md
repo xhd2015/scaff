@@ -16,7 +16,7 @@ scaff skill --show --header -> ---\n<header>\n---\n (no body)
 1. Run `scaff skill --show --header`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show", "--header"}
 	return nil
 }

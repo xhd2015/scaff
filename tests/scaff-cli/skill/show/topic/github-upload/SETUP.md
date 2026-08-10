@@ -15,7 +15,7 @@ scaff skill --show github/upload -> name: scaff/github/upload
 1. Run `scaff skill --show github/upload`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show", "github/upload"}
 	return nil
 }

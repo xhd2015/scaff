@@ -16,7 +16,7 @@ script/github/release-assets fix -> main.go with help + Proposed behavior
 1. Run `scaff fix script/github/release-assets`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/github/release-assets"}
 	return nil
 }

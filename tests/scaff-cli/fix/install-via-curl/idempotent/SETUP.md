@@ -17,7 +17,7 @@ install/via-curl fix -> nothing to do
 2. Run `scaff fix install/via-curl`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeInstallViaCurl(req.ProjectDir, "#!/usr/bin/env bash\n# CUSTOM_INSTALLER\n"); err != nil {
 		return err
 	}

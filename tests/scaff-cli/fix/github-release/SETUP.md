@@ -17,7 +17,7 @@ fix executor -> github/release -> release scripts under script/github/
 2. Run `scaff fix github/release` with optional `--dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}

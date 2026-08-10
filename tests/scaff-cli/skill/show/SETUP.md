@@ -16,7 +16,7 @@ scaff skill --show [path] | scaff skill <path> --show -> skill body on stdout
 1. Descendant leaves set topic path, flag order, and optional `--header`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Keep parent skill package import live under hierarchical gen.
 	// Leaves narrow Args for root, topic, header, or unknown path.
 	if req.RunDir == "" {

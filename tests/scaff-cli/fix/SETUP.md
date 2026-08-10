@@ -21,7 +21,7 @@ scaff fix <rule> [flags] -> filesystem changes + stdout
 - Exit 0 on success or no-op; exit 1 on fix failure; exit 2 on unknown rule.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
 	}

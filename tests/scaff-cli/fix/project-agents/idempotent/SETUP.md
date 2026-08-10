@@ -17,7 +17,7 @@ project/agents fix -> nothing to do
 2. Run `scaff fix project/agents`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeAGENTS(req.ProjectDir, "# CUSTOM_AGENTS\n\nExisting agent instructions.\n"); err != nil {
 		return err
 	}

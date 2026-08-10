@@ -16,7 +16,7 @@ script/bundle/for-linux fix -> script/bundle/for-linux/main.go
 1. Run `scaff fix script/bundle/for-linux`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/bundle/for-linux"}
 	return nil
 }

@@ -17,7 +17,7 @@ fix executor -> tests/doctest -> DOCTEST.md + SETUP.md
 2. Run `scaff fix tests/doctest` with optional `--dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}

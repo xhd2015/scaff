@@ -17,7 +17,7 @@ script/github/release-assets fix -> nothing to do
 2. Run `scaff fix script/github/release-assets`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeScriptGithubReleaseAssets(req.ProjectDir); err != nil {
 		return err
 	}

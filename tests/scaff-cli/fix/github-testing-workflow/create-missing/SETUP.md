@@ -16,7 +16,7 @@ github/testing-workflow fix -> embedded template
 1. Run `scaff fix github/testing-workflow`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "github/testing-workflow"}
 	return nil
 }

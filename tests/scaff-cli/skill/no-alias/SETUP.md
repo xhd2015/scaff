@@ -17,7 +17,7 @@ scaff install | scaff topics -> unknown command (not skill install/list)
 1. Leaf runs a forbidden top-level command.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Leaves set Args to top-level install or topics (not under skill).
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir

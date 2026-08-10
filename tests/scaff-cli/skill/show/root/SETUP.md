@@ -17,7 +17,7 @@ scaff skill --show -> frontmatter name: scaff + index body with retrieve example
 1. Run `scaff skill --show`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show"}
 	return nil
 }

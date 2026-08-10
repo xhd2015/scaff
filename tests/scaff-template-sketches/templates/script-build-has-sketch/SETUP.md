@@ -24,7 +24,7 @@ import (
 	"testing"
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	rel := "script/build/build.go"
 	if _, err := os.Stat(filepath.Join(req.ProjectDir, rel)); err == nil {
 		return os.Remove(filepath.Join(req.ProjectDir, rel))

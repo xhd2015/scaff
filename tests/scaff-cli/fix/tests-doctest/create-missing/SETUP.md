@@ -17,7 +17,7 @@ tests/doctest fix -> tests/myapp-cli/ with module substitutions
 2. Run `scaff fix tests/doctest`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "tests/doctest"}
 	return nil
 }

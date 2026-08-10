@@ -16,7 +16,7 @@ scaff skill --show git/ignore -> name: scaff/git/ignore / rule git/ignore
 1. Run `scaff skill --show git/ignore`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show", "git/ignore"}
 	return nil
 }

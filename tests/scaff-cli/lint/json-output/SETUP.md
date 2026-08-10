@@ -17,7 +17,7 @@ scaff lint --json -> LintReport JSON on stdout
 2. Run `scaff lint --json`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"lint", "--json"}
 	return nil
 }

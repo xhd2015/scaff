@@ -17,7 +17,7 @@ fix executor -> git/hooks -> hook runner without sub-check dirs
 2. Run `scaff fix git/hooks`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

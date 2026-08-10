@@ -15,7 +15,7 @@ scaff skill --help -> mentions --show, --install, --list + Available topics
 1. Assert usage markers and topic index.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if len(req.Args) == 0 {
 		req.Args = []string{"skill", "--help"}
 	}

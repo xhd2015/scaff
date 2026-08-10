@@ -17,7 +17,7 @@ Project detector -> lint orchestrator -> all rules ok
 2. Run `scaff lint`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"lint"}
 	return nil
 }

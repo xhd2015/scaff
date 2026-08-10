@@ -17,7 +17,7 @@ fix executor -> project/layout/cmd -> cmd entry main.go
 2. Run `scaff fix project/layout/cmd` with case-specific flags.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoModGitHubScaffold(req.ProjectDir); err != nil {
 		return err
 	}

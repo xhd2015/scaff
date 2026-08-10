@@ -17,7 +17,7 @@ git/ignore fix --dry-run -> stdout preview, .gitignore unchanged
 2. Run `scaff fix git/ignore --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writePartialGitignore(req.ProjectDir); err != nil {
 		return err
 	}

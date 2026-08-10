@@ -17,7 +17,7 @@ project/agents fix -> AGENTS.md with build and test sections
 2. Run `scaff fix project/agents`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "project/agents"}
 	return nil
 }

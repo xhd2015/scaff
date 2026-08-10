@@ -25,7 +25,7 @@ import (
 	"github.com/xhd2015/scaff/internal/rules"
 )
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Leaf will assert slash form on every ID returned by Run.
 	for i, r := range rules.Catalog {
 		if r.ID == "" {

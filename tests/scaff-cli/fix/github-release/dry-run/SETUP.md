@@ -16,7 +16,7 @@ github/release fix --dry-run -> preview only
 1. Run `scaff fix github/release --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "github/release", "--dry-run"}
 	return nil
 }

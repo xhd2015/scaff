@@ -17,7 +17,7 @@ Project detector <- --profile flag -> git/ignore pattern set
 2. Run `scaff lint` with `--profile` when overriding auto-detect.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if len(req.Args) == 0 {
 		req.Args = []string{"lint"}
 	}

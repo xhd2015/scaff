@@ -16,7 +16,7 @@ script/build fix --dry-run -> stdout preview, build.go unchanged
 1. Run `scaff fix script/build --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/build", "--dry-run"}
 	return nil
 }

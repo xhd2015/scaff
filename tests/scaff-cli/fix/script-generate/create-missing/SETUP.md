@@ -16,7 +16,7 @@ script/generate fix -> generator entrypoint stub
 1. Run `scaff fix script/generate`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/generate"}
 	return nil
 }

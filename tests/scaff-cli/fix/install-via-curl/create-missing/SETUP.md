@@ -16,7 +16,7 @@ install/via-curl fix -> install.sh at repo root
 1. Run `scaff fix install/via-curl`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "install/via-curl"}
 	return nil
 }

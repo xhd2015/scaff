@@ -17,7 +17,7 @@ scaff skill --show <path> | scaff skill <path> --show -> topic body
 1. Leaf sets path and flag order; Assert checks identity markers.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Leaves set Args with topic path and --show order.
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir

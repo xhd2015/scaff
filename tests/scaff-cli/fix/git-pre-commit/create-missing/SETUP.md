@@ -16,7 +16,7 @@ git/pre-commit fix -> brief pre-commit helper
 1. Run `scaff fix git/pre-commit`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "git/pre-commit"}
 	return nil
 }

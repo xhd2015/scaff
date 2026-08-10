@@ -16,7 +16,7 @@ fix executor -> unknown rule -> exit 2
 1. Run `scaff fix unknown.rule`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

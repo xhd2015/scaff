@@ -17,7 +17,7 @@ Rule git/ignore -> partial status for missing pattern
 2. Run `scaff lint`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

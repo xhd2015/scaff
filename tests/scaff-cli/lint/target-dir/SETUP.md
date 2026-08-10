@@ -17,7 +17,7 @@ scaff lint --dir <subdir> -> rules evaluated relative to subdir
 2. Run `scaff lint --dir <subdir>` from the parent.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.RunDir = req.ProjectDir
 	return nil
 }

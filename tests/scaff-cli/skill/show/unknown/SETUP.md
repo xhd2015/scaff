@@ -16,7 +16,7 @@ scaff skill --show not-a-real-topic -> error
 1. Run `scaff skill --show not-a-real-topic`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show", "not-a-real-topic"}
 	return nil
 }

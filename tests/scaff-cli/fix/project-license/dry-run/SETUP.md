@@ -16,7 +16,7 @@ project/license fix --dry-run -> preview only
 1. Run `scaff fix project/license --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "project/license", "--dry-run"}
 	return nil
 }

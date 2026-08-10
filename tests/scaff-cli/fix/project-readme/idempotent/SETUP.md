@@ -17,7 +17,7 @@ project/readme fix -> nothing to do
 2. Run `scaff fix project/readme`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeREADME(req.ProjectDir, "# CUSTOM_README\n\nExisting content.\n"); err != nil {
 		return err
 	}

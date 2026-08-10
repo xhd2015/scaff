@@ -16,7 +16,7 @@ install/via-curl fix --dry-run -> preview only
 1. Run `scaff fix install/via-curl --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "install/via-curl", "--dry-run"}
 	return nil
 }

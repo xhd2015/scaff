@@ -19,7 +19,7 @@ scaff lint --dir app -> rules evaluated under app/
 ```go
 import "path/filepath"
 
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	appDir := filepath.Join(req.ProjectDir, "app")
 	if err := writeGoMod(appDir); err != nil {
 		return err

@@ -18,7 +18,7 @@ github/release fix -> append missing build_release.go
 2. Run `scaff fix github/release`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	customMain := "// CUSTOM_RELEASE_MAIN\n"
 	if err := writeGithubReleaseMain(req.ProjectDir, customMain); err != nil {
 		return err

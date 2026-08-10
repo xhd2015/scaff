@@ -17,7 +17,7 @@ git/ignore fix -> new .gitignore with universal + Go patterns
 2. Run `scaff fix git/ignore`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "git/ignore"}
 	return nil
 }

@@ -15,7 +15,7 @@ scaff skill --show install-via-curl -> name: scaff/install-via-curl / install/vi
 1. Run `scaff skill --show install-via-curl`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--show", "install-via-curl"}
 	return nil
 }

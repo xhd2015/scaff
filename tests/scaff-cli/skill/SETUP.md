@@ -24,7 +24,7 @@ User -> scaff skill [--list|--show|--install|--help] -> stdout/stderr/exit
 - Modes: exactly one of `--show` | `--install` | `--list` (skillcmd); `--header` only with `--show`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir
 	}

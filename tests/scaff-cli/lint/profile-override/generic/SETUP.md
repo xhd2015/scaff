@@ -17,7 +17,7 @@ git/ignore -> only .DS_Store, .vscode/, *.swp, *~ patterns
 2. Run `scaff lint`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeFile(req.ProjectDir, "README.md", "# app\n"); err != nil {
 		return err
 	}

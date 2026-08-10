@@ -16,7 +16,7 @@ project/layout/cmd fix -> cmd/myapp/main.go
 1. Run `scaff fix project/layout/cmd`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "project/layout/cmd"}
 	return nil
 }

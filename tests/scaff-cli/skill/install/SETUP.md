@@ -16,7 +16,7 @@ scaff skill --install [--dry-run] [<dir>] -> plan or write SKILL.md + TOPIC.md t
 1. Leaf chooses dry-run / target dir args.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	// Leaves set --install flags; prefer --dry-run + positional dir.
 	if req.RunDir == "" {
 		req.RunDir = req.ProjectDir

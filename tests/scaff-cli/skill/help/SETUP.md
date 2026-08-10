@@ -16,7 +16,7 @@ scaff skill --help -> usage + --show/--install/--list + topic index
 1. Leaf runs `scaff skill --help`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--help"}
 	return nil
 }

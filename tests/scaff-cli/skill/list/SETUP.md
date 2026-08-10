@@ -16,7 +16,7 @@ scaff skill --list -> "scaff\n" + topic paths (one per line)
 1. Run `scaff skill --list`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"skill", "--list"}
 	return nil
 }

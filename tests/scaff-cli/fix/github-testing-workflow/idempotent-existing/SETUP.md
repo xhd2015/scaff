@@ -17,7 +17,7 @@ github/testing-workflow fix -> nothing to do
 2. Run `scaff fix github/testing-workflow`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeTestWorkflow(req.ProjectDir); err != nil {
 		return err
 	}

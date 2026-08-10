@@ -17,7 +17,7 @@ project/readme fix -> README.md with go install line
 2. Run `scaff fix project/readme`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "project/readme"}
 	return nil
 }

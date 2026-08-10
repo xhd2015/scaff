@@ -16,7 +16,7 @@ git/pre-commit fix --dry-run -> stdout preview, no file
 1. Run `scaff fix git/pre-commit --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "git/pre-commit", "--dry-run"}
 	return nil
 }

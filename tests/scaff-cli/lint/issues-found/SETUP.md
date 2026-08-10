@@ -21,7 +21,7 @@ Project detector -> lint orchestrator -> missing/partial rule results
 - Human-readable text output is the default format.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"lint"}
 	return nil
 }

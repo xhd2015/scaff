@@ -16,7 +16,7 @@ script/build fix -> script/build/build.go
 1. Run `scaff fix script/build`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/build"}
 	return nil
 }

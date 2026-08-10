@@ -16,7 +16,7 @@ git/hooks/install fix -> exit 1, hint scaff fix git/hooks
 1. Run `scaff fix git/hooks/install`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "git/hooks/install"}
 	return nil
 }

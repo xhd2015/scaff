@@ -17,7 +17,7 @@ fix executor -> script/generate -> no-op stub
 2. Run `scaff fix script/generate`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

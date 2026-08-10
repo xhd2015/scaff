@@ -17,7 +17,7 @@ github/release fix -> nothing to do
 2. Run `scaff fix github/release`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGithubReleaseMain(req.ProjectDir, "// CUSTOM_RELEASE_MAIN\n"); err != nil {
 		return err
 	}

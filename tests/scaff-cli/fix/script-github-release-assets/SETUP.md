@@ -19,7 +19,7 @@ fix executor -> script/github/release-assets -> release-assets helper stub
 2. Run `scaff fix script/github/release-assets` with case-specific flags.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeGoMod(req.ProjectDir); err != nil {
 		return err
 	}

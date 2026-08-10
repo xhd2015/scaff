@@ -17,7 +17,7 @@ github/testing-workflow fix -> test.yml alongside ci.yml
 2. Run `scaff fix github/testing-workflow`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	if err := writeCiWorkflow(req.ProjectDir); err != nil {
 		return err
 	}

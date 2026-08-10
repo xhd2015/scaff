@@ -16,7 +16,7 @@ scaff topics -> unknown command, exit non-zero
 1. Run `scaff topics`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"topics"}
 	return nil
 }

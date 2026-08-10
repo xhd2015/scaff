@@ -16,7 +16,7 @@ git/hooks fix -> minimal hook runner (no sub-check dirs)
 1. Run `scaff fix git/hooks`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "git/hooks"}
 	return nil
 }

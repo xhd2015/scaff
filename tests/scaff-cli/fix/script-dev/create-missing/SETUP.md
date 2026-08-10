@@ -16,7 +16,7 @@ script/dev fix -> script/dev/main.go
 1. Run `scaff fix script/dev`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/dev"}
 	return nil
 }

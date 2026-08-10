@@ -17,7 +17,7 @@ project/license fix -> LICENSE with year and owner
 2. Run `scaff fix project/license`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "project/license"}
 	return nil
 }

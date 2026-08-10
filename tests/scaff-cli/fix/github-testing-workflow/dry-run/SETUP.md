@@ -16,7 +16,7 @@ github/testing-workflow fix --dry-run -> preview only
 1. Run `scaff fix github/testing-workflow --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "github/testing-workflow", "--dry-run"}
 	return nil
 }

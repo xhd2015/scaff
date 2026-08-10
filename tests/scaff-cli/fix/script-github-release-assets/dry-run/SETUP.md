@@ -16,7 +16,7 @@ script/github/release-assets fix --dry-run -> stdout preview, main.go unchanged
 1. Run `scaff fix script/github/release-assets --dry-run`.
 
 ```go
-func Setup(t *testing.T, req *Request) error {
+func Setup(t *testing.T, d *session.Doctest, req *Request) error {
 	req.Args = []string{"fix", "script/github/release-assets", "--dry-run"}
 	return nil
 }
