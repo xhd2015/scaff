@@ -29,16 +29,25 @@ jobs:
 
       # Layer model (DOCTEST_DESIGN_PRINCIPLE): discovery = in-process mass;
       # label e2e = full integration only. Prefer discovery for PR signal; e2e on full push.
-      # Doctest stages omit -coverprofile: multi-package trees (e.g. scaff-rule-ids)
-      # reject a single profile path; product coverage comes from go test above.
+      # Each stage writes its own coverprofile path; xgo merges them (do not reuse one path across stages).
       - name: Doctest discovery (in-process mass)
         # --label '!e2e' skips e2e; heavy may still run. Fast PR feedback vs --label-all.
-        run: doctest test --label '!e2e' -count=1 ./...
+        run: |
+          doctest test --label '!e2e' -count=1 \
+            -cover -covermode="$COVERMODE" \
+            -coverpkg="$COVERPKG" \
+            -coverprofile=coverage-doctest-discovery.out \
+            ./...
 
       - name: Doctest e2e (full integration)
         # True process-boundary / nested-product leaves (label: e2e).
         # May be a no-op if this repo has no e2e-labeled leaves yet.
-        run: doctest test --label e2e -count=1 ./...
+        run: |
+          doctest test --label e2e -count=1 \
+            -cover -covermode="$COVERMODE" \
+            -coverpkg="$COVERPKG" \
+            -coverprofile=coverage-doctest-e2e.out \
+            ./...
 
       - name: Install xgo (coverage merge)
         # Prebuilt binary; see xgo doc/INSTALLATION.md (faster than go install in CI).
@@ -56,7 +65,7 @@ jobs:
 
       - name: Merge coverage and report
         # Merge only profiles that exist (partial success still reports).
-        # With doctest cover omitted, this is typically just coverage-gotest.out.
+        # xgo tool coverage merge — do not reuse one -coverprofile path across stages.
         run: |
           set -euo pipefail
           export PATH="$HOME/go/bin:$PATH"
